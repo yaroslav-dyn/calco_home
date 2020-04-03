@@ -1,0 +1,54 @@
+.loader {
+  height: 8px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  &-overlay {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 65px);
+    z-index: 1000;
+    top: 65px;
+    max-width: 1280px;
+
+  }
+    &:before {
+      display: block;
+      position: absolute;
+      content: "";
+      left: -200px;
+      width: 200px;
+      height: 4px;
+     // background-color: red;
+      animation: loading 2s linear infinite;
+    }
+}
+
+@keyframes loading {
+  from {
+    left: -200px;
+    width: 30%;
+    background-color: red;
+  }
+  50% {
+    width: 30%;
+    background-color: #f44336;
+  }
+  70% {
+    width: 70%;
+    background-color: #43a047;
+  }
+  80% {
+    left: 50%;
+    background-color: #388e3c;
+  }
+  95% {
+    left: 120%;
+    background-color: #388e3c;
+  }
+  to {
+    left: 100%;
+    background-color: #2e7d32;
+  }
+}

@@ -1,5 +1,24 @@
 
 .app {
+  &_menu {
+    &__logo {
+      a {
+        color: #EDE7F6;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+    &__btn {
+      border: none;
+      background: none;
+      > i {
+        color: #EDE7F6;
+      }
+      &:focus, &:hover {
+        outline: none;
+      }
+    }
+  }
   &_container {
     max-width: 1140px;
     height: 100%;
@@ -9,3 +28,4 @@
     }
   }
 }
+

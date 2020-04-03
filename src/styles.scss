@@ -2,3 +2,39 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.h100 {
+  height: 100%;
+}
+.vh100 {
+  height: 100vh;
+}
+.w100 {
+  width: 100%;
+}
+
+.text {
+  &_right {
+    text-align: right;
+  }
+  &_center {
+    text-align: center;
+  }
+  &_left {
+    text-align: left;
+  }
+}
+
+.app_nav__link {
+  color: #444;
+  font-size: 14px;
+  text-decoration: none;
+  &:hover {
+    color: lighten(#444, 5%);
+    text-decoration: inherit;
+  }
+  &:focus, &:active, &:visited {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
