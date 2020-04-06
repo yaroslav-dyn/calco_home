@@ -12,13 +12,13 @@ import {Constants} from "./constants.list";
           <mat-icon color="accent">menu</mat-icon>
         </button>
         <h1 class="app_menu__logo app_nav__link">
-          <a class="app_nav__link" routerLink="/" >{{constantList.Project.name}}</a>
+          <a class="app_nav__link" [routerLink]="'/'">{{constantList.Project.name}}</a>
         </h1>
       </mat-toolbar>
       <mat-sidenav-container class="app_sidenav__container h100" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <mat-nav-list>
-            <a mat-list-item class="app_nav__link" routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
+            <a mat-list-item class="app_nav__link" [routerLink]="nav.path" *ngFor="let nav of fillerNav">{{nav.label}}</a>
           </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -35,7 +35,17 @@ import {Constants} from "./constants.list";
 export class AppComponent {
   mobileQuery: MediaQueryList;
 
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+  fillerNav = [
+    {
+      label: 'Login',
+      path: '/login',
+    },
+    {
+      label: 'Sign Up',
+      path: '/sign-up',
+
+    }
+  ];
 
 
 

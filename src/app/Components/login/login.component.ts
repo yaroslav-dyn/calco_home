@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import {LoginService} from '../../services/login.service';
 import {LoggedState} from '../../services/loggedUser';
 
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -20,96 +20,31 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-login',
   template: `
-    <div class="container content-padding">
-<!--      <div class="row">-->
-<!--        <div class="col s12 l6 offset-l3">-->
-<!--          <form name="sign-in" #signInForm="ngForm" novalidate (ngSubmit)="onFormSubmit(signInForm)">-->
-
-<!--            <div class="row">-->
-<!--              <div class="input-field col s12">-->
-<!--                <input id="email" type="email" class="validate" name="email" [ngModel]="user.email" #email="ngModel"-->
-<!--                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$" required>-->
-<!--                <label for="email">Email</label>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="row" ngModelGroup="password" #userPassword="ngModelGroup">-->
-<!--              <div class="input-field col s12">-->
-<!--                <input id="password" type="password" class="validate" minlength="6" name="pwd"-->
-<!--                       ngModel required>-->
-<!--                <label for="password">Password</label>-->
-<!--              </div>-->
-<!--            </div>-->
-
-
-<!--            <div class="row">-->
-<!--              <div class="col s12 m6 left-align">-->
-<!--                <a class="link_to__auth" routerLink="/signUp">-->
-<!--                  I DON'T HAVE ACCOUNT-->
-<!--                </a>-->
-<!--              </div>-->
-<!--              <div class="col s12 m6 right-align">-->
-<!--                <button class="btn waves-effect waves-light btn-mobile-large" [disabled]="!signInForm.form.valid"-->
-<!--                        type="submit">-->
-<!--                  Login-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </form>-->
-<!--          &lt;!&ndash;  Errors messages&ndash;&gt;-->
-<!--          <div class="row">-->
-<!--            <div class="col s12 validate-errors">-->
-<!--              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="">-->
-<!--                <div class="card-panel red lighten-1 white-text" *ngIf="email.errors?.required">-->
-<!--                  {{constantList.messages['emailCantBeBlank']}}-->
-<!--                </div>-->
-<!--                <div class="card-panel red lighten-1 white-text" *ngIf="email.errors?.pattern && email.touched">-->
-<!--                  {{constantList.messages['wrongEmailPattern']}}-->
-<!--                </div>-->
-<!--              </div>-->
-
-<!--              <div class="card-panel red lighten-1 white-text" *ngIf="userPassword.invalid && userPassword.touched;">-->
-<!--                {{constantList.messages['passwordLengthError']}}-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--        </div>-->
-<!--      </div>-->
-      <div class="row">
-
-        <mat-form-field class="w100">
-          <mat-label>Email</mat-label>
-          <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                 placeholder="Ex. pat@example.com">
-<!--          <mat-hint>Errors appear instantly!</mat-hint>-->
-          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-            Please enter a valid email address
-          </mat-error>
-          <mat-error *ngIf="emailFormControl.hasError('required')">
-            Email is <strong>required</strong>
+    <div class="half-screen">
+      <form [formGroup]="loginGroup" (ngSubmit)="onFormSubmit(loginGroup)" class="form">
+        <mat-form-field floatLabel="never" class="form-element w100">
+          <input type="text" matInput placeholder="email" formControlName="email">
+          <mat-error *ngIf="loginGroup.controls['email'].invalid">
+            {{getError('email')}}
           </mat-error>
         </mat-form-field>
 
-          <mat-form-field class="w100">
-            <mat-label>Password</mat-label>
-            <input matInput placeholder="Password" >
-          </mat-form-field>
+        <mat-form-field floatLabel="never" class="form-element w100">
+          <input type="password" matInput placeholder="Password" formControlName="password">
+          <mat-error *ngIf="!loginGroup.controls['password'].valid">
+            {{getError('pass')}}
+          </mat-error>
+        </mat-form-field>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="h100">
-          <div>
-            <a class="link_to__auth" routerLink="/signUp">
-              I DON'T HAVE ACCOUNT
-            </a>
-          </div>
-          <div>
-            <button mat-stroked-button class="" >
-              Login
-            </button>
-          </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <a routerLink="/sign-up">{{constantList.getMessage('haveNotAccount')}}</a>
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!loginGroup.valid">{{constantList.getMessage('login')}}</button>
+
         </div>
-      </div>
+
+      </form>
     </div>
+
   `,
   styles: [
     `.link_to__auth {
@@ -120,9 +55,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   ]
 })
 export class LoginComponent implements OnInit {
-  route: any;
 
-  private user: UserModel;
+  public loginGroup: FormGroup;
+
 
   logUser: {password: string, email: string} = {
     password: '',
@@ -133,7 +68,8 @@ export class LoginComponent implements OnInit {
   constructor(private constantList: Constants,
               private loginService: LoginService,
               private routeLogin: Router,
-              private loggedStateService:  LoggedState
+              private loggedStateService:  LoggedState,
+              private formBuilder: FormBuilder
   ) { }
 
 
@@ -143,31 +79,49 @@ export class LoginComponent implements OnInit {
     this.routeLogin.navigate(['profile']);
   }
 
-  public onFormSubmit({ value}: { value: UserModel}) {
+
+  public onFormSubmit( { value}: { value: UserModel}) {
 
     this.logUser = {
       email: value.email,
       password: value.password.pwd
     };
-    this.loginService.loginUser(this.logUser).subscribe((res) => {
-      this.completeLogin(res);
-    }, Error => {
-      console.log('error', Error.error);
-      console.log(Error.error.message, `Backend returned code ${Error.status}, body was: ${Error.error}`);
+    this.loginService.loginUser(this.logUser);
+  }
+
+
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.loginGroup = this.formBuilder.group({
+      'email': ['', [ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      'password': ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
 
-  matcher = new MyErrorStateMatcher();
-
-  ngOnInit() {
-    this.user = new UserModel({
-      email: '', password: {pwd: ''},
-    });
+  getError(el) {
+    switch (el) {
+      case 'email':
+        if (this.loginGroup.get('email').hasError('required')) {
+          return 'email required';
+        } else if (this.loginGroup.get('email').hasError('pattern')) {
+          return 'invalid email';
+        }
+        break;
+      case 'pass':
+        if (this.loginGroup.get('password').hasError('required')) {
+          return this.constantList.messages.passwordsDontMatch
+        } else if (this.loginGroup.get('password').hasError('minlength')) {
+          return this.constantList.messages.passwordLengthError
+        }
+        break;
+      default:
+        return '';
+    }
   }
 
 }

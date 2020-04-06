@@ -1,12 +1,7 @@
 
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Constants} from "../constants.list";
-import { map } from 'rxjs/operators';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 
 
@@ -14,29 +9,23 @@ const httpOptions = {
 export class LoginService {
   _baseUrl: string;
 
-  constructor(private httpClient: HttpClient, private constantList: Constants) {
-  }
-
-  loginUser(user) {
-    //TODO: test user for this API
-    user = {
-      email: 'eve.holt@reqres.in',
-      password: 'cityslicka'
-    };
-
-    this._baseUrl = this.constantList.Project.baseUrl;
-    return this.httpClient.post(this._baseUrl + 'login', user, httpOptions);
+  constructor(private constantList: Constants, private storage: StorageMap) {
 
   }
 
-  getCurrentUser(userID) {
-    // this._baseUrl = this.constantList.Project.baseUrl;
-    // return this.httpClient.get(this._baseUrl + 'users' + '/' +  userID)
-    //  .map(currUser => currUser['data']);
+   loginUser(user) {
+
+     this.storage.get('loggedUser').subscribe((data) => {
+        console.log('data from store', data);
+     });
+
   }
 
   checkLogin() {
-    return sessionStorage.getItem('loggedUser') !== null;
+    this.storage.get('loggedUser').subscribe((user) => {
+      console.log(user);
+      return user !== null
+    });
   }
 
 }

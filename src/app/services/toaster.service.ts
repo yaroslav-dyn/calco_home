@@ -3,7 +3,9 @@ import {Constants} from "../constants.list";
 
 
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ToasterService {
 
   Messages: any = this.constantList.messages;

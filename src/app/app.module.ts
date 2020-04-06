@@ -17,7 +17,6 @@ import {Constants} from './constants.list';
 import { LoginComponent } from './Components/login/login.component'
 import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
-import {LoginGuard} from "./services/loginGuard.service";
 import {LoggedState} from "./services/loggedUser";
 import {LoaderService} from "./services/preload.service";
 import { LoaderInterceptorService } from './services/preload-interceptor.service';
@@ -27,9 +26,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ApiUsersInfoComponent} from "./Components/content-components/api-users-info/api-users-info.component";
 import {LoaderComponent} from "./Components/content-components/loader/loader.component";
 import {TermsComponent} from "./Components/content-components/terms/terms.component";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+import {MaterialModule} from "./material.module";
+import {LoginGuard} from "./services/login-gard.service";
+import { StorageModule } from '@ngx-pwa/local-storage';
 
 @NgModule({
   declarations: [
@@ -49,19 +48,13 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     FlexLayoutModule,
     HttpClientModule,
-
-    MatGridListModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
+    MaterialModule,
     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule
+    StorageModule.forRoot({ IDBNoWrap: true }),
+
   ],
-  providers: [Constants, LoginService, RegisterService, LoginGuard, LoggedState, LoaderService, LoaderInterceptorService,
+  providers: [Constants, LoginService, RegisterService, LoggedState, LoaderService, LoaderInterceptorService, LoginGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,
