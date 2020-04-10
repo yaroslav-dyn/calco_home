@@ -3,6 +3,17 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+$link-color: #283593;
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  &:hover {text-decoration: underline;}
+  &:hover, &:focus, &:active, &:visited {
+    color: lighten($link-color, 14%);
+  }
+}
+
 .h100 {
   height: 100%;
 }
@@ -41,4 +52,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: inherit;
     text-decoration: inherit;
   }
+}
+
+.service_action__container {
+  padding: 30px 0;
 }

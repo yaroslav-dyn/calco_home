@@ -4,15 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatGridListModule} from "@angular/material/grid-list";
 import { PageNotFoundComponent } from './Components/content-components/page-not-found/page-not-found.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { HomeComponent } from './Components/home/home.component';
 import { HeaderComponent } from './Components/header/header.component';
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatListModule} from "@angular/material/list";
-import {MatIconModule} from "@angular/material/icon";
 import {Constants} from './constants.list';
 import { LoginComponent } from './Components/login/login.component'
 import { LoginService } from './services/login.service';
@@ -26,9 +21,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ApiUsersInfoComponent} from "./Components/content-components/api-users-info/api-users-info.component";
 import {LoaderComponent} from "./Components/content-components/loader/loader.component";
 import {TermsComponent} from "./Components/content-components/terms/terms.component";
+import {TermsModalComponent} from "./Components/content-components/terms/terms-modal.component";
 import {MaterialModule} from "./material.module";
 import {LoginGuard} from "./services/login-gard.service";
 import { StorageModule } from '@ngx-pwa/local-storage';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +37,9 @@ import { StorageModule } from '@ngx-pwa/local-storage';
     RegistrationComponent,
     TermsComponent,
     ApiUsersInfoComponent,
-    LoaderComponent
+    LoaderComponent,
+    TermsComponent,
+    TermsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +51,6 @@ import { StorageModule } from '@ngx-pwa/local-storage';
     FormsModule,
     ReactiveFormsModule,
     StorageModule.forRoot({ IDBNoWrap: true }),
-
   ],
   providers: [Constants, LoginService, RegisterService, LoggedState, LoaderService, LoaderInterceptorService, LoginGuard,
     {
@@ -60,6 +58,7 @@ import { StorageModule } from '@ngx-pwa/local-storage';
       useClass: LoaderInterceptorService,
       multi: true
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TermsModalComponent]
 })
 export class AppModule { }

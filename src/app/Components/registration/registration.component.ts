@@ -4,8 +4,11 @@ import {RegisterService} from '../../services/register.service';
 import { Router } from '@angular/router';
 import {ToasterService} from '../../services/toaster.service';
 import {Constants} from '../../constants.list';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {CommonService} from "../../services/common.service";
+import { MustMatch } from '../../_helpers/must-match.validator';
+import {TermsComponent} from '../content-components/terms/terms.component'
+import {TermsService} from "../../services/terms.service";
 
 @Component({
   selector: 'app-registration',
@@ -15,28 +18,40 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
         <mat-form-field floatLabel="never" class="form-element w100">
           <input type="text" matInput placeholder="email" formControlName="email">
           <mat-error *ngIf="regGroup.controls['email'].invalid">
-            {{getError('email')}}
+            {{getValidationError('email', regGroup)}}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="form-element w100">
           <input type="password" matInput placeholder="Password" formControlName="password">
           <mat-error *ngIf="!regGroup.controls['password'].valid">
-            {{getError('pass')}}
+            {{getValidationError('pass', regGroup)}}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field floatLabel="never" class="form-element w100">
           <input type="password" matInput placeholder="Repeat Password" formControlName="repeatPassword">
           <mat-error *ngIf="!regGroup.controls['repeatPassword'].valid">
-            {{getError('repeatPassword')}}
+            {{getValidationError('repeatPassword', regGroup)}}
           </mat-error>
         </mat-form-field>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <a routerLink="/sign-up">{{constantList.getMessage('haveNotAccount')}}</a>
-          <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!regGroup.valid">{{constantList.getMessage('signUp')}}</button>
+        <div>
+          <mat-checkbox formControlName="termsConditions">
+            <mat-label>I have reed and understood {{constantList.Project.name}}'s</mat-label>
+            &#160;
+            <app-terms></app-terms>
+          </mat-checkbox>
+          <mat-error
+              *ngIf="!regGroup.controls['termsConditions'].valid && regGroup.controls['termsConditions'].touched">
+            {{getValidationError('termsConditions', regGroup)}}
+          </mat-error>
+        </div>
 
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="service_action__container">
+          <a routerLink="/login">{{constantList.getMessage('iHaveAccount')}}</a>
+          <button mat-raised-button color="primary" type="submit" class="button"
+                  [disabled]="!regGroup.valid">{{constantList.getMessage('signUp')}}</button>
         </div>
 
       </form>
@@ -47,18 +62,22 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class RegistrationComponent implements OnInit {
   public regGroup: FormGroup;
   private user: UserModel;
+  passModel: string
 
     regUser: {password: string, email: string} = {
       password: '',
       email: ''
     };
 
+
   constructor(
     private registerService: RegisterService,
     private toastService: ToasterService,
     private constantList: Constants,
     private routeReg: Router,
-    private formBuilder: FormBuilder ) {}
+    private formBuilder: FormBuilder,
+    private commonService: CommonService,
+    private termsService: TermsService) {}
 
   ngOnInit() {
     this.user = new UserModel({
@@ -67,33 +86,23 @@ export class RegistrationComponent implements OnInit {
     });
     this.createForm();
 
+    this.termsService.termsState.subscribe( state => {
+      this.regGroup.controls['termsConditions'].setValue(state);
+    })
+
   }
+
+  get f() { return this.regGroup.controls; }
 
   createForm() {
     this.regGroup = this.formBuilder.group({
-      'email': ['', [ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      'password': ['', [Validators.required, Validators.minLength(6)]]
+      email : ['', [ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      password : ['', [Validators.required, Validators.minLength(6)]],
+      repeatPassword : ['', [Validators.required]],
+      termsConditions: ['', [Validators.requiredTrue]]
+    },{
+      validator: MustMatch('password', 'repeatPassword')
     });
-  }
-  getError(el) {
-    switch (el) {
-      case 'email':
-        if (this.regGroup.get('email').hasError('required')) {
-          return 'email required';
-        } else if (this.regGroup.get('email').hasError('pattern')) {
-          return 'invalid email';
-        }
-        break;
-      case 'pass':
-        if (this.regGroup.get('password').hasError('required')) {
-          return this.constantList.messages.passwordsDontMatch
-        } else if (this.regGroup.get('password').hasError('minlength')) {
-          return this.constantList.messages.passwordLengthError
-        }
-        break;
-      default:
-        return '';
-    }
   }
 
 
@@ -101,13 +110,15 @@ export class RegistrationComponent implements OnInit {
     this.routeReg.navigate(['signUp/thanks']);
     localStorage.setItem('currentUser', result.token);
   }
+  getValidationError(el, formElement) {
+    return this.commonService.getError(el, formElement);
+  }
 
   public onFormSubmit({ value, valid}: { value: UserModel, valid: boolean }) {
     this.regUser = {
       email: value.email,
       password: value.password.pwd
     };
-
 
     this.registerService.registerUser(this.regUser).subscribe((res) => {
           this.completeRegister(res);

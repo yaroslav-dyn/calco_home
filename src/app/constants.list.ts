@@ -12,13 +12,16 @@ export class Constants  {
   messages: {[name: string]: string} = {
     'emailCantBeBlank': 'Email field can\'t be blank',
     'wrongEmailPattern': 'The email id doesn\'t seem right',
-    'passwordLengthError': 'Password needs to be more than 8 characters',
+    'passwordCantBeBlank': 'Password field can\'t be blank',
+    'passwordLengthError': 'Password needs to be more than 6 characters',
     'passwordsDontMatch': 'Passwords don\'t match',
     'haveBeenRegister': 'You have been registered on',
     'haveProblemWithApi': 'Oops! Maybe we have problem with API',
-    'haveNotAccount': 'I don\'t have account',
+    'iHaveAccount': 'I have an account',
+    'haveNotAccount': 'I don\'t have an account',
     'login': 'Login',
-    'signUp': 'Sign Up'
+    'signUp': 'Sign Up',
+    'termsConditions': 'You must accept terms and conditions'
   };
 
   public getMessage(str) {
