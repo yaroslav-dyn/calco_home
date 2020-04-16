@@ -1,11 +1,6 @@
-
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Constants} from "../constants.list";
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 
 @Injectable({
@@ -13,16 +8,15 @@ const httpOptions = {
 })
 
 export class RegisterService {
-  _baseUrl: string;
 
-  constructor(private httpClient: HttpClient, private constantList: Constants) {
+  constructor( private constantList: Constants,
+               private storage: StorageMap) {
   }
 
-
-  registerUser(user) {
-    this._baseUrl = this.constantList.Project.baseUrl;
-    return this.httpClient.post(this._baseUrl + 'register', user, httpOptions);
-
+  async registerUser(user) {
+    this.storage.set( user.email.toString(), user.password.toString()).subscribe({
+      next: () => {}, error: (error) => { console.log('error user', error)}
+    });
   }
 }
 

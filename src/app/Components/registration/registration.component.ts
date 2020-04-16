@@ -4,10 +4,9 @@ import {RegisterService} from '../../services/register.service';
 import { Router } from '@angular/router';
 import {ToasterService} from '../../services/toaster.service';
 import {Constants} from '../../constants.list';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommonService} from "../../services/common.service";
 import { MustMatch } from '../../_helpers/must-match.validator';
-import {TermsComponent} from '../content-components/terms/terms.component'
 import {TermsService} from "../../services/terms.service";
 
 @Component({
@@ -85,11 +84,9 @@ export class RegistrationComponent implements OnInit {
       terms: false
     });
     this.createForm();
-
     this.termsService.termsState.subscribe( state => {
       this.regGroup.controls['termsConditions'].setValue(state);
     })
-
   }
 
   get f() { return this.regGroup.controls; }
@@ -107,22 +104,21 @@ export class RegistrationComponent implements OnInit {
 
 
   completeRegister(result) {
-    this.routeReg.navigate(['signUp/thanks']);
-    localStorage.setItem('currentUser', result.token);
+    this.routeReg.navigate(['sign-up/thanks']);
   }
   getValidationError(el, formElement) {
     return this.commonService.getError(el, formElement);
   }
 
-  public onFormSubmit({ value, valid}: { value: UserModel, valid: boolean }) {
+  public onFormSubmit({ value }: { value: UserModel}) {
     this.regUser = {
       email: value.email,
-      password: value.password.pwd
+      password: value.password
     };
 
-    this.registerService.registerUser(this.regUser).subscribe((res) => {
-          this.completeRegister(res);
-          this.toastService.showToast('haveBeenRegister ' + this.constantList.Project.name, 'success');
+    this.registerService.registerUser(this.regUser).then((res) => {
+         this.completeRegister(res);
+         this.toastService.showToast('haveBeenRegister ' + this.constantList.Project.name, 'success');
     }, Error => {
       console.log('error', Error.error);
     });

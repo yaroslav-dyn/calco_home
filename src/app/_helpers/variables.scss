@@ -1,0 +1,38 @@
+//variables
+$text-color: #444;
+$link-color: #283593;
+
+//mixin
+@mixin reset-link($linkColor: $link-color, $hoverColor: $linkColor, $decor: none) {
+    color: $linkColor;
+    &:hover, &:active, &:focus, &:visited {
+        text-decoration: $decor;
+    }
+}
+
+//helpers
+.h100 {
+    height: 100%;
+}
+.vh100 {
+    height: 100vh;
+}
+.w100 {
+    width: 100%;
+}
+.half-screen {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.text {
+    &_right {
+        text-align: right;
+    }
+    &_center {
+        text-align: center;
+    }
+    &_left {
+        text-align: left;
+    }
+}

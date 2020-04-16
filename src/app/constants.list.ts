@@ -21,7 +21,11 @@ export class Constants  {
     'haveNotAccount': 'I don\'t have an account',
     'login': 'Login',
     'signUp': 'Sign Up',
-    'termsConditions': 'You must accept terms and conditions'
+    'logout': 'Logout',
+    'termsConditions': 'You must accept terms and conditions',
+    'incorrectLoginData': 'Your account or password is incorrect',
+    'converter': 'Converter',
+    'timer': 'Timer'
   };
 
   public getMessage(str) {

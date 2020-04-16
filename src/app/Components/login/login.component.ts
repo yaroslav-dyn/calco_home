@@ -46,7 +46,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 				</form>
 			</div>
-
     `,
     styles: [
             `.link_to__auth {
@@ -68,26 +67,18 @@ export class LoginComponent implements OnInit {
 
     constructor(private constantList: Constants,
                 private loginService: LoginService,
-                private routeLogin: Router,
-                private loggedStateService: LoggedState,
                 private formBuilder: FormBuilder,
                 private commonService: CommonService
     ) {
     }
 
 
-    completeLogin(result) {
-        sessionStorage.setItem('loggedUser', result.token);
-        this.loggedStateService.loggedState.next(true);
-        this.routeLogin.navigate(['profile']);
-    }
-
 
     public onFormSubmit({value}: { value: UserModel }) {
 
         this.logUser = {
             email: value.email,
-            password: value.password.pwd
+            password: value.password
         };
         this.loginService.loginUser(this.logUser);
     }

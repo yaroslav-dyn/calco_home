@@ -25,6 +25,10 @@ import {TermsModalComponent} from "./Components/content-components/terms/terms-m
 import {MaterialModule} from "./material.module";
 import {LoginGuard} from "./services/login-gard.service";
 import { StorageModule } from '@ngx-pwa/local-storage';
+import { PostRegistrationComponent } from './Components/registration/post/post-registration.component';
+import { ConverterComponent } from './Components/converter/converter.component';
+import { CountdownModule } from 'ngx-countdown';
+import { TimerComponent } from './Components/timer/timer.component';
 
 
 @NgModule({
@@ -39,7 +43,10 @@ import { StorageModule } from '@ngx-pwa/local-storage';
     ApiUsersInfoComponent,
     LoaderComponent,
     TermsComponent,
-    TermsModalComponent
+    TermsModalComponent,
+    PostRegistrationComponent,
+    ConverterComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +58,7 @@ import { StorageModule } from '@ngx-pwa/local-storage';
     FormsModule,
     ReactiveFormsModule,
     StorageModule.forRoot({ IDBNoWrap: true }),
+    CountdownModule
   ],
   providers: [Constants, LoginService, RegisterService, LoggedState, LoaderService, LoaderInterceptorService, LoginGuard,
     {
