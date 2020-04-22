@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { MediaMatcher } from "@angular/cdk/layout";
 import { Constants } from "./constants.list";
 import { LoggedState } from "./services/loggedUser";
@@ -11,13 +11,18 @@ import {LoginService} from "./services/login.service";
    <div class="app_menu__container h100" [class.example-is-mobile]="mobileQuery.matches" >
       <mat-toolbar color="primary" class="app-toolbar">
         <button class="app_menu__btn" mat-icon-button (click)="snav.toggle()">
-          <mat-icon color="accent">menu</mat-icon>
+          <mat-icon *ngIf="!snav.opened"   class="app_menu__trigger">menu</mat-icon>
+          <mat-icon  *ngIf="snav.opened" class="app_menu__trigger">close</mat-icon>
         </button>
-
-          <h1 class="app_menu__logo app_nav__link">
+          <h1 class="app_menu__logo app_nav__link" fxShow  fxHide.lt-md="true">
             <a class="app_nav__link" [routerLink]="'/'">{{ constantList.Project.name }}</a>
           </h1>
-          <div class="app_menu__top-links">
+          <div  fxHide fxShow.lt-md class="app_menu__dashboard-link">
+            <a class="dashboard-link" routerLink="/">
+              <mat-icon class="dashboard-link__icon" aria-hidden="false" aria-label="menu">dashboard</mat-icon>
+            </a>
+          </div>
+          <div class="app_menu__top-links" fxShow fxHide.lt-md="true">
             <a  class="app_nav__link" routerLink="login" routerLinkActive="active" *ngIf="!loggedUser">{{ constantList.getMessage('login') }}</a>
             <a  class="app_nav__link" routerLink="sign-up" routerLinkActive="active" *ngIf="!loggedUser">{{ constantList.getMessage('signUp') }}</a>
             <a  class="app_nav__link" (click)="logout()" *ngIf="loggedUser">
@@ -36,9 +41,13 @@ import {LoginService} from "./services/login.service";
                 {{nav.label}}
               </a>
             </div>
+            <a  mat-list-item (click)="logout()" *ngIf="loggedUser">
+              <mat-icon aria-hidden="false" aria-label="home">power_settings_new</mat-icon>
+              {{constantList.getMessage('logout')}}
+            </a>
           </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content>
+        <mat-sidenav-content class="app_sidenav__container--inner">
           <div class="app_container">
             <router-outlet></router-outlet>
           </div>
@@ -49,10 +58,16 @@ import {LoginService} from "./services/login.service";
    `,
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy   {
   mobileQuery: MediaQueryList;
   loggedUser: boolean;
   fillerNav = [
+    {
+      label: 'Dashboard',
+      path: '/',
+      requiredLogin: true,
+      icon: 'dashboard'
+    },
     {
       label: 'Login',
       path: 'login',
@@ -70,7 +85,13 @@ export class AppComponent implements OnInit {
       label: 'Converter',
       path: 'converter',
       requiredLogin:  true,
-      icon: 'cashed'
+      icon: 'cached'
+    },
+    {
+      label: 'Timer',
+      path: 'timer',
+      requiredLogin:  true,
+      icon: 'timer'
     }
   ];
 
@@ -93,6 +114,11 @@ export class AppComponent implements OnInit {
     this.loginService.checkLogin();
     this.loggedService.loggedState.subscribe((loggedUser) => this.loggedUser = loggedUser);
   }
+
+  testTemple(e) {
+    console.log(e);
+  }
+
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

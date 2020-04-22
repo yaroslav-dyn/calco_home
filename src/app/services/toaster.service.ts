@@ -13,9 +13,9 @@ export class ToasterService {
   Const: any = this.constantList;
   constructor(private constantList: Constants,
               private _snackBar: MatSnackBar) {}
-  showToast(mes, type) {
+  showToast(mes, type, dur?) {
     this._snackBar.open(this.Messages[mes] , type,  {
-      duration: 4000,
+      duration:  dur || 4000,
       verticalPosition: 'top',
       horizontalPosition: 'right'
     });

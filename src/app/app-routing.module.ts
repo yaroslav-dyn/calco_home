@@ -8,6 +8,7 @@ import { RegistrationComponent } from './Components/registration/registration.co
 import { PostRegistrationComponent } from "./Components/registration/post/post-registration.component";
 import { ConverterComponent } from  './Components/converter/converter.component'
 import {TimerComponent} from "./Components/timer/timer.component";
+import {NotesComponent} from "./Components/notes/notes.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'sign-up/thanks', component: PostRegistrationComponent },
   { path: 'converter', component: ConverterComponent },
   { path: 'timer', component: TimerComponent },
+  { path: 'notes', component: NotesComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

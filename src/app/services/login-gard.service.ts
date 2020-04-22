@@ -12,6 +12,8 @@ export class LoginGuard implements CanActivate {
               private storage: StorageMap) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        return !!localStorage.getItem('loggedUser')
+     let status  = !!localStorage.getItem('loggedUser');
+        if (!status) this.router.navigate(['login']);
+        return status
     }
 }

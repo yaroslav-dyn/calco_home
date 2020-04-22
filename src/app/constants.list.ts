@@ -25,7 +25,9 @@ export class Constants  {
     'termsConditions': 'You must accept terms and conditions',
     'incorrectLoginData': 'Your account or password is incorrect',
     'converter': 'Converter',
-    'timer': 'Timer'
+    'timer': 'Timer',
+    'timeIsOut': 'Time is out',
+    'notes': 'Notes'
   };
 
   public getMessage(str) {

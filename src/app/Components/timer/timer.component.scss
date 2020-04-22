@@ -1,0 +1,42 @@
+
+.app_timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 64px);
+    &__display {
+        font-size: 6rem;
+        color: #fff;
+        background-color: #000;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 1px 1px 8px 4px rgba(0,0,0,.6);
+    }
+    &__controls {
+        padding: 30px 0;
+        &--btn {
+            margin-right: 8px;
+            min-width: 80px;
+            min-height: 80px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    &__remind {
+        animation-name: visual-remind;
+        animation-iteration-count: 4;
+        animation-duration: 1s;
+    }
+
+}
+
+@keyframes visual-remind {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}

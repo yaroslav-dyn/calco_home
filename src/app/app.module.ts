@@ -18,10 +18,9 @@ import { LoaderInterceptorService } from './services/preload-interceptor.service
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {RegistrationComponent} from "./Components/registration/registration.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ApiUsersInfoComponent} from "./Components/content-components/api-users-info/api-users-info.component";
 import {LoaderComponent} from "./Components/content-components/loader/loader.component";
-import {TermsComponent} from "./Components/content-components/terms/terms.component";
-import {TermsModalComponent} from "./Components/content-components/terms/terms-modal.component";
+import {TermsComponent} from "./Components/content-components/modals/terms/terms.component";
+import {TermsModalComponent} from "./Components/content-components/modals/terms/terms-modal.component";
 import {MaterialModule} from "./material.module";
 import {LoginGuard} from "./services/login-gard.service";
 import { StorageModule } from '@ngx-pwa/local-storage';
@@ -29,6 +28,9 @@ import { PostRegistrationComponent } from './Components/registration/post/post-r
 import { ConverterComponent } from './Components/converter/converter.component';
 import { CountdownModule } from 'ngx-countdown';
 import { TimerComponent } from './Components/timer/timer.component';
+import { NotesComponent } from './Components/notes/notes.component';
+import { AcceptModalComponent } from './Components/content-components/modals/accept-modal/accept-modal.component';
+import { NoteEditorComponent } from './Components/content-components/modals/note-editor/note-editor.component';
 
 
 @NgModule({
@@ -40,13 +42,15 @@ import { TimerComponent } from './Components/timer/timer.component';
     LoginComponent,
     RegistrationComponent,
     TermsComponent,
-    ApiUsersInfoComponent,
     LoaderComponent,
     TermsComponent,
     TermsModalComponent,
     PostRegistrationComponent,
     ConverterComponent,
-    TimerComponent
+    TimerComponent,
+    NotesComponent,
+    AcceptModalComponent,
+    NoteEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +71,6 @@ import { TimerComponent } from './Components/timer/timer.component';
       multi: true
     }],
   bootstrap: [AppComponent],
-  entryComponents: [TermsModalComponent]
+  entryComponents: [TermsModalComponent, AcceptModalComponent, NoteEditorComponent]
 })
 export class AppModule { }

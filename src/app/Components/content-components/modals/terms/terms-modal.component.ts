@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {TermsService} from "../../../services/terms.service";
+import {TermsService} from "../../../../services/terms.service";
 
 
 @Component({

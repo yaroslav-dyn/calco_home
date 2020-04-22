@@ -1,6 +1,17 @@
-
+@import './_helpers/variables.scss';
 .app {
+  &-t1oolbar {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
   &_menu {
+    &__trigger {
+      font-size: 30px;
+      width: 30px;
+      color: #fff;
+    }
+
     &__logo {
       a {
         color: #EDE7F6;
@@ -8,19 +19,24 @@
         font-size: 18px;
       }
     }
+
     &__btn {
       border: none;
       background: none;
+
       > i {
         color: #EDE7F6;
       }
+
       &:focus, &:hover {
         outline: none;
       }
     }
-    &__top-links{
+
+    &__top-links {
       width: 100%;
       text-align: right;
+
       a {
         color: #fff;
         font-size: 16px;
@@ -30,18 +46,46 @@
         padding: 0 8px;
         display: inline-block;
         border-radius: 6px;
+
         &.active, &:hover {
-          background: rgba(0,0,0,0.6);
+          background: rgba(0, 0, 0, 0.6);
         }
       }
+    }
+
+    &__dashboard-link {
+      flex: 1;
+      text-align: center;
+      .dashboard-link {
+        @include reset-link(#fff, #fff);
+        &__icon {
+          font-size: 40px;
+          width: 40px;
+          height: 40px;
+          margin-left: -20px;
+        }
+      }
+    }
+  }
+  &_sidenav__container {
+    &--inner {
+      overflow-x: hidden;
+      margin: 0
     }
   }
   &_container {
     max-width: 1140px;
     height: 100%;
     margin: 0 auto;
-    @media (max-width: 959px) {
-      width: 100%;
+    padding: 15px;
+  }
+  @media (max-width: 959px) {
+    .app {
+      &_menu {
+        &_container {
+          width: 100%;
+        }
+      }
     }
   }
 }

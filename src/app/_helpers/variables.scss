@@ -1,6 +1,18 @@
 //variables
 $text-color: #444;
 $link-color: #283593;
+$text-inverted: #fff;
+$action-green: #00e676;
+
+[color=action-green] {
+  background-color: $action-green;
+}
+[text=text] {
+  color: $text-color;
+}
+[text=text-inverted] {
+  color: $text-inverted;
+}
 
 //mixin
 @mixin reset-link($linkColor: $link-color, $hoverColor: $linkColor, $decor: none) {
@@ -21,8 +33,11 @@ $link-color: #283593;
     width: 100%;
 }
 .half-screen {
-    width: 50%;
-    margin: 0 auto;
+    @media (min-width: 1140px) {
+        width: 50%;
+        margin: 0 auto;
+    }
+
 }
 
 .text {

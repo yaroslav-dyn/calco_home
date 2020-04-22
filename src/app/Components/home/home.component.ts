@@ -18,15 +18,20 @@ import {Constants} from "../../constants.list";
           <mat-grid-tile class="plotter_item">
             <a routerLink="timer" class="text_center plotter_link">
               <div>
-                <mat-icon aria-hidden="false"  class="plotter_icon">timer</mat-icon>
+                <mat-icon aria-hidden="false" class="plotter_icon">timer</mat-icon>
                 <div>{{constantList.getMessage('timer')}}</div>
               </div>
             </a>
           </mat-grid-tile>
           <mat-grid-tile class="plotter_item">
-               3 
+            <a routerLink="notes" class="text_center plotter_link">
+              <div>
+                <mat-icon aria-hidden="false"  class="plotter_icon">notes</mat-icon>
+                <div>{{constantList.getMessage('notes')}}</div>
+              </div>
+            </a>
           </mat-grid-tile>
-          <mat-grid-tile class="plotter_item">4</mat-grid-tile>
+          <mat-grid-tile class="plotter_item">Reminder</mat-grid-tile>
         </mat-grid-list>
       </div>
     <!-- End template -->

@@ -19,9 +19,6 @@ export class TermsComponent  {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-
-
-
     this.dialog.open(TermsModalComponent, {
       width: '80vw',
       height: '80vh',

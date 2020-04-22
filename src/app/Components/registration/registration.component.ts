@@ -36,8 +36,8 @@ import {TermsService} from "../../services/terms.service";
         </mat-form-field>
 
         <div>
-          <mat-checkbox formControlName="termsConditions">
-            <mat-label>I have reed and understood {{constantList.Project.name}}'s</mat-label>
+          <mat-checkbox formControlName="termsConditions" class="terms_link">
+            <mat-label> I have reed and understood {{constantList.Project.name}}'s</mat-label>
             &#160;
             <app-terms></app-terms>
           </mat-checkbox>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {fromArray} from "rxjs/internal/observable/fromArray";
 
 @Component({
   selector: 'app-converter',
@@ -38,18 +37,18 @@ import {fromArray} from "rxjs/internal/observable/fromArray";
 export class ConverterComponent implements OnInit {
 
   public converterGroup: FormGroup;
-  public unitsKm: any = {
+  public unitsKm: {[name: string]: number} = {
     kilometers: 1,
     miles: 0.621371,
     mps: 1000
   }
-  public unitsMiles: any = {
+  public unitsMiles: {[name: string]: number} = {
     kilometers: 1.60934,
     miles: 1,
     mps: 1609.34
   }
 
-  public unitsMps: any = {
+  public unitsMps: {[name: string]: number} = {
     mps: 1,
     kilometers: 0.001,
     miles: 0.000621371
@@ -68,7 +67,6 @@ export class ConverterComponent implements OnInit {
 
 
   calculate(key, value, units) {
-    console.log(key, value, units);
     return units[key] * value
   }
 
@@ -93,6 +91,7 @@ export class ConverterComponent implements OnInit {
         miles:   this.calculate('miles', value, this.unitsMps),
       }, {emitEvent: false});
     });
+
 
   }//
 

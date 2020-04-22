@@ -99,8 +99,7 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule,
-
+    MatStepperModule
   ]
 })
 
