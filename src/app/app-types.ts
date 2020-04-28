@@ -5,6 +5,7 @@ declare namespace AppTypes {
     title: string;
     text: string,
     group: string,
-    edit: boolean
+    edit: boolean,
+    timeID: number
   }
 }

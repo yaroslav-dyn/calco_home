@@ -9,12 +9,12 @@ import NewNote = AppTypes.NewNote;
 			<form name="note">
         <mat-form-field class="w100">
           <mat-label ></mat-label>
-          <input matInput [(ngModel)]="entireData.title" name="title" >
+          <input matInput [value]="entireData.title" name="title" (change)="formHasChanged($event, 'title')">
         </mat-form-field>
         
         <mat-form-field class="w100">
           <mat-label></mat-label>
-          <textarea  rows="3" matInput name="text" [(ngModel)]="entireData.text"></textarea>
+          <textarea  rows="3" matInput name="text" [value]="entireData.text" (change)="formHasChanged($event, 'text')"></textarea>
         </mat-form-field>
         
       </form>
@@ -35,6 +35,12 @@ export class NoteEditorComponent {
       @Inject(MAT_DIALOG_DATA) public data) { }
 
       public entireData: NewNote = this.data;
+
+
+  formHasChanged(text, type) {
+    type === 'text' ? this.entireData.text = text.target.value : this.entireData.title = text.target.value;
+  }
+
 
   onNoClick(): void {
     this.dialogRef.close();

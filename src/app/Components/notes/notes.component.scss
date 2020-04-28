@@ -1,12 +1,37 @@
 .notes {
   &_group {
-    //margin-right: 10px;
+    &__item {
+      margin-bottom: 3px;
+      position: relative;
+      .group-element {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        &.active {
+          background-color: #000;
+          color: #fff;
+        }
+      }
+    }
   }
   &_items {
+    .active-type {
+      background-color: #000;
+      .mat-icon  {
+        color: #fff
+      }
+    }
     &__actions {
       margin: 14px 0;
       text-align: center;
       cursor: pointer;
+    }
+  }
+  &_panel__bgap {
+    padding-bottom: 10px;
+  }
+  @media (min-width: 960px) {
+    &_group {
+      margin-right: 14px;
     }
   }
 }
@@ -17,7 +42,7 @@
   }
   &_block {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     &__icon {
       cursor: pointer;
     }

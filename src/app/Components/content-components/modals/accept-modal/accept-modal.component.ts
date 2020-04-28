@@ -4,9 +4,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 @Component({
   selector: 'app-accept-modal',
   template: `
-		<h2 mat-dialog-title class="text_center"> You really want to delete note: </h2>
+		<h2 mat-dialog-title class="text_center"> You really want to delete {{data.type}}: </h2>
 		<div mat-dialog-content class="text_center">
-			{{data.title}}
+			{{data.item.title}}
 		</div>
 		<div mat-dialog-actions>
       <div class="text_center w100">

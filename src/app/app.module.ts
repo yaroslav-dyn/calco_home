@@ -31,6 +31,7 @@ import { TimerComponent } from './Components/timer/timer.component';
 import { NotesComponent } from './Components/notes/notes.component';
 import { AcceptModalComponent } from './Components/content-components/modals/accept-modal/accept-modal.component';
 import { NoteEditorComponent } from './Components/content-components/modals/note-editor/note-editor.component';
+import {MatchPipe} from "./_helpers/pipes/match.pipe";
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { NoteEditorComponent } from './Components/content-components/modals/note
     TimerComponent,
     NotesComponent,
     AcceptModalComponent,
-    NoteEditorComponent
+    NoteEditorComponent,
+    MatchPipe
   ],
   imports: [
     BrowserModule,
