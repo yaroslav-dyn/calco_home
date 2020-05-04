@@ -14,7 +14,7 @@ import NewNote = AppTypes.NewNote;
         
         <mat-form-field class="w100">
           <mat-label></mat-label>
-          <textarea  rows="3" matInput name="text" [value]="entireData.text" (change)="formHasChanged($event, 'text')"></textarea>
+          <textarea  rows="3" matInput name="text" [value]="entireData.text || ''" (change)="formHasChanged($event, 'text')"></textarea>
         </mat-form-field>
         
       </form>

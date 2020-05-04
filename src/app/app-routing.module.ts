@@ -7,8 +7,9 @@ import { LoginGuard } from "./services/login-gard.service";
 import { RegistrationComponent } from './Components/registration/registration.component';
 import { PostRegistrationComponent } from "./Components/registration/post/post-registration.component";
 import { ConverterComponent } from  './Components/converter/converter.component'
-import {TimerComponent} from "./Components/timer/timer.component";
-import {NotesComponent} from "./Components/notes/notes.component";
+import { TimerComponent } from "./Components/timer/timer.component";
+import { NotesComponent } from "./Components/notes/notes.component";
+import { ReminderComponent } from "./Components/reminder/reminder.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'converter', component: ConverterComponent },
   { path: 'timer', component: TimerComponent },
   { path: 'notes', component: NotesComponent },
+  { path: 'notes', component: NotesComponent },
+  { path: 'reminder', component: ReminderComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

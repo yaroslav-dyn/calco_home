@@ -31,7 +31,12 @@ import { TimerComponent } from './Components/timer/timer.component';
 import { NotesComponent } from './Components/notes/notes.component';
 import { AcceptModalComponent } from './Components/content-components/modals/accept-modal/accept-modal.component';
 import { NoteEditorComponent } from './Components/content-components/modals/note-editor/note-editor.component';
-import {MatchPipe} from "./_helpers/pipes/match.pipe";
+import { MatchPipe } from "./_helpers/pipes/match.pipe";
+import { ReminderComponent } from './Components/reminder/reminder.component';
+import { RemindEditorComponent } from './Components/content-components/modals/remined-editor/remind-editor.component';
+import { ReminderCardComponent } from './Components/reminder/reminder-card/reminder-card.component';
+import {FormatDate} from "./_helpers/pipes/formatDate";
+import { ReminderControlsComponent } from './Components/reminder/reminder-controls/reminder-controls.component';
 
 
 @NgModule({
@@ -52,7 +57,12 @@ import {MatchPipe} from "./_helpers/pipes/match.pipe";
     NotesComponent,
     AcceptModalComponent,
     NoteEditorComponent,
-    MatchPipe
+    MatchPipe,
+    FormatDate,
+    ReminderComponent,
+    RemindEditorComponent,
+    ReminderCardComponent,
+    ReminderControlsComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +83,6 @@ import {MatchPipe} from "./_helpers/pipes/match.pipe";
       multi: true
     }],
   bootstrap: [AppComponent],
-  entryComponents: [TermsModalComponent, AcceptModalComponent, NoteEditorComponent]
+  entryComponents: [TermsModalComponent, AcceptModalComponent, NoteEditorComponent, RemindEditorComponent]
 })
 export class AppModule { }

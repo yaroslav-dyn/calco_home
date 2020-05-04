@@ -47,12 +47,4 @@ export class NotesService {
   * End notes methods
   */
 
-
-
-
-
-
-
-
-
 }

@@ -1,12 +1,9 @@
-
-import {Injectable} from '@angular/core';
-import {Constants} from "../constants.list";
+import { Injectable } from '@angular/core';
+import { Constants } from "../constants.list";
 import { StorageMap } from '@ngx-pwa/local-storage';
-import {Router} from "@angular/router";
-import {LoggedState} from "./loggedUser";
-import {ToasterService} from "./toaster.service";
-
-
+import { Router } from "@angular/router";
+import { LoggedState } from "./loggedUser";
+import { ToasterService } from "./toaster.service";
 
 @Injectable()
 export class LoginService {

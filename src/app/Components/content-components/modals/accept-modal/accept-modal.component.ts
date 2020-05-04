@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Constants} from "../../../../constants.list";
 
 @Component({
   selector: 'app-accept-modal',
   template: `
-		<h2 mat-dialog-title class="text_center"> You really want to delete {{data.type}}: </h2>
+		<h2 mat-dialog-title class="text_center"> {{constants.getMessage('askForDelete')}} {{data.type}}: </h2>
 		<div mat-dialog-content class="text_center">
 			{{data.item.title}}
 		</div>
@@ -22,7 +23,8 @@ export class AcceptModalComponent {
 
   constructor(
       public dialogRef: MatDialogRef<AcceptModalComponent>,
-      @Inject(MAT_DIALOG_DATA) public data) {}
+      @Inject(MAT_DIALOG_DATA) public data,
+      private constants: Constants) {}
 
   onNoClick(): void {
     this.dialogRef.close();

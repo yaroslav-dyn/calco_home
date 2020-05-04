@@ -92,8 +92,15 @@ export class AppComponent implements OnInit, OnDestroy   {
       path: 'timer',
       requiredLogin:  true,
       icon: 'timer'
+    },
+    {
+      label: 'Notes',
+      path: 'notes',
+      requiredLogin:  true,
+      icon: 'notes'
     }
   ];
+
 
   logout() {
     this.loginService.logout();

@@ -31,7 +31,15 @@ import {Constants} from "../../constants.list";
               </div>
             </a>
           </mat-grid-tile>
-          <mat-grid-tile class="plotter_item">Reminder</mat-grid-tile>
+          
+          <mat-grid-tile class="plotter_item">
+						<a routerLink="reminder" class="text_center plotter_link">
+							<div>
+								<mat-icon aria-hidden="false" class="plotter_icon"> calendar_today </mat-icon>
+								<div>{{constantList.getMessage('reminder')}}</div>
+							</div>
+						</a>
+          </mat-grid-tile>
         </mat-grid-list>
       </div>
     <!-- End template -->

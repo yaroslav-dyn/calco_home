@@ -27,7 +27,11 @@ export class Constants  {
     'converter': 'Converter',
     'timer': 'Timer',
     'timeIsOut': 'Time is out',
-    'notes': 'Notes'
+    'notes': 'Notes',
+    'reminder': 'Reminder',
+    'askForDelete': 'You really want to delete',
+    'groupAddSuccess' : 'Group was added successfully',
+    'groupAlreadyExist' : 'Group already exist'
   };
 
   public getMessage(str) {

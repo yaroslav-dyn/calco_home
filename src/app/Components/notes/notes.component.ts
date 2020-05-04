@@ -29,7 +29,7 @@ import {MatchPipe} from "../../_helpers/pipes/match.pipe";
         </div>
 			</div>
       <!-- ##  -->
-			<div fxFlex.gt-sm="80"  class="notes_items" >
+			<div fxFlex.gt-sm="80"  class="notes_items">
         <div class="notes_panel__bgap" fxLayoutGap="10px">
           <button [ngClass]="{'active-type': noteLayout === 'column wrap' }" (click)="changeNoteLayout('column wrap')" mat-raised-button> 
             <mat-icon> view_list </mat-icon> 
@@ -56,7 +56,7 @@ import {MatchPipe} from "../../_helpers/pipes/match.pipe";
 										</mat-form-field>
 										<mat-form-field class="w100" *ngIf="note.edit">
 									<textarea rows="3" matInput
-														(change)="noteChange(i, $event, 'text')" [value]="note.text" [name]="'noteText' + i" ></textarea>
+														(change)="noteChange(i, $event, 'text')" [value]="note.text" [name]="'noteText' + i"></textarea>
 										</mat-form-field>
 									</form>
 								</div>
@@ -80,7 +80,6 @@ import {MatchPipe} from "../../_helpers/pipes/match.pipe";
 							</div>
 						</mat-card>
           </div>
-			
         </div>
 
 				<div class="notes_items__actions w100">
@@ -104,7 +103,7 @@ export class NotesComponent implements OnInit {
     timeID: 0
   }
 
-  public noteGroup: string[] = [];
+  public noteGroup: string[] = ['all'];
 
   public allNotes: NewNote[] = [];
 
@@ -112,10 +111,9 @@ export class NotesComponent implements OnInit {
   public editNotesMarker: boolean = false;
 
   public noteLayout: string = 'column wrap';
-
   public groupFilter: string = 'all';
 
-  public groupToSelect: string;
+
 
   constructor(private notesService: NotesService,
               private matchPipe: MatchPipe,
@@ -181,7 +179,6 @@ export class NotesComponent implements OnInit {
         data: note
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
          this.noteUpgrade(index, result);
       });
     }
@@ -212,7 +209,6 @@ export class NotesComponent implements OnInit {
   }
 
   openDeleteDialog(i, inst, type): void {
-    console.log(i, inst, type);
       const dialogRef = this.dialog.open(AcceptModalComponent, {
         width: 'auto',
         data: {item: inst, type: type}
@@ -226,7 +222,6 @@ export class NotesComponent implements OnInit {
   groupWasChanged(index, ev) {
    this.allNotes[index].group = ev
    this.notesService.updateNotes( this.allNotes );
-
   }
 
   changeNoteLayout(type) {
