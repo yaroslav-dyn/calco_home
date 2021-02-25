@@ -21,6 +21,7 @@ export class LoginService {
      this.storage.get(user.email, { type: 'string' }).subscribe({
        next: (data) => {
              if (data && data ===  user.password) this.completeLogin()
+             else if (!data) this.toast.showToast('userNotFound', 'error')
              else  this.toast.showToast('incorrectLoginData', 'error')
          },
        error: (error) => { console.log('error', error); },

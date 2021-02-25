@@ -31,7 +31,8 @@ export class Constants  {
     'reminder': 'Reminder',
     'askForDelete': 'You really want to delete',
     'groupAddSuccess' : 'Group was added successfully',
-    'groupAlreadyExist' : 'Group already exist'
+    'groupAlreadyExist' : 'Group already exist',
+    'userNotFound' : 'User not found!'
   };
 
   public getMessage(str) {

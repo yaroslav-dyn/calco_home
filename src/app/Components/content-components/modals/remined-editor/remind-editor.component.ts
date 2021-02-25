@@ -94,7 +94,6 @@ export class RemindEditorComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(this.groups);
     this.createForm();
   }
 

@@ -11,6 +11,5 @@ export class MatchPipe implements PipeTransform {
     } else {
       return value.filter(el => el.group === option);
     }
-
   }
 }

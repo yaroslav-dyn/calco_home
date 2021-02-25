@@ -68,11 +68,10 @@ export class RegistrationComponent implements OnInit {
       email: ''
     };
 
-
   constructor(
     private registerService: RegisterService,
     private toastService: ToasterService,
-    private constantList: Constants,
+    public constantList: Constants,
     private routeReg: Router,
     private formBuilder: FormBuilder,
     private commonService: CommonService,

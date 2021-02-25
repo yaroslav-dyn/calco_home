@@ -11,7 +11,7 @@ import {MatchPipe} from "../../_helpers/pipes/match.pipe";
   template: `
 		<div fxLayout.gt-sm='row' fxLayout.xs="column" class="notes">
 			<div fxFlex.gt-sm="20"  class="notes_group">
-        <div class="notes_group__item notes_panel__bgap" fxLayout="row" fxLayoutGap="10px">
+        <div class="notes_group__item notes_panel__bgap" fxLayout="row" fxLayoutGap="10px" [style.zIndex]="10000">
 					<button mat-flat-button color="action-green" class="w100" (click)="addGroup('New Group')">
 						<mat-icon aria-hidden="false" aria-label="add" text="text-inverted"> add </mat-icon>
 					</button>
@@ -30,7 +30,7 @@ import {MatchPipe} from "../../_helpers/pipes/match.pipe";
 			</div>
       <!-- ##  -->
 			<div fxFlex.gt-sm="80"  class="notes_items">
-        <div class="notes_panel__bgap" fxLayoutGap="10px">
+        <div class="notes_panel__bgap" fxLayoutGap="10px" [style.zIndex]="1000">
           <button [ngClass]="{'active-type': noteLayout === 'column wrap' }" (click)="changeNoteLayout('column wrap')" mat-raised-button> 
             <mat-icon> view_list </mat-icon> 
           </button>
@@ -124,8 +124,13 @@ export class NotesComponent implements OnInit {
   */
 
     addGroup (group) {
-      this.noteGroup.push(group);
-      this.updateGroups( this.noteGroup );
+      let groupTo = group;
+      if( this.noteGroup.includes(group)) {
+        groupTo = `${group}_${Date.now()}`
+      }
+        this.noteGroup.push(groupTo);
+        this.updateGroups( this.noteGroup );
+
     }
     delGroup (index) {
       this.noteGroup =  this.noteGroup.filter( (j, i) => {

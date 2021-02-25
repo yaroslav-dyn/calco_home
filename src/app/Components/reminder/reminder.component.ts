@@ -12,11 +12,12 @@ import {AcceptModalComponent} from "../content-components/modals/accept-modal/ac
 
 		 <app-reminder-controls
 				 [eventGroups]="groups"
+         (filterGroupChanged)="filterChanged($event)"
      >
   
      </app-reminder-controls>
 
-		 <app-reminder-card *ngFor="let event of events; index as i"
+		 <app-reminder-card *ngFor="let event of (events | matchString:groupFilter); index as i"
         [eventItem]="event"
         [index]="i"
         (delEvent)="openDeleteDialog(i, event, 'reminder')">
@@ -35,7 +36,8 @@ import {AcceptModalComponent} from "../content-components/modals/accept-modal/ac
 
 export class ReminderComponent implements OnInit {
 
-  public groups: string[] = ['all']
+  public groups: string[] = ['all'];
+  public groupFilter: string = 'all'
 
 
   public events: NewEvent[] = [];
@@ -80,13 +82,9 @@ export class ReminderComponent implements OnInit {
     this.reminderService.updateReminders(this.events);
   }
 
-  updateItems(item) {
-
-  };
-
-  groupWasChanged(index, ev) {
-
-  };
+  filterChanged(ev) {
+    this.groupFilter = ev;
+  }
 
   getAllReminders() {
     this.reminderService.getReminders().subscribe({

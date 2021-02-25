@@ -2,7 +2,6 @@
   &_group {
     &__item {
       margin-bottom: 3px;
-      position: relative;
       .group-element {
         text-overflow: ellipsis;
         overflow: hidden;
@@ -28,6 +27,9 @@
   }
   &_panel__bgap {
     padding-bottom: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   @media (min-width: 960px) {
     &_group {
