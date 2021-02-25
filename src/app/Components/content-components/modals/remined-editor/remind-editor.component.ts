@@ -10,26 +10,26 @@ import {ToasterService} from "../../../../services/toaster.service";
 		<form [formGroup]="remindItem">
 			<mat-form-field floatLabel="never" class="w100">
 				<mat-label>Choose a date</mat-label>
-				<input matInput [matDatepicker]="picker" formControlName="selectDate">
+				<input matInput [matDatepicker]="picker" formControlName="selectDate" [value]="getFields('selectDate')">
 				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker touchUi #picker startView="year"></mat-datepicker>
 			</mat-form-field>
 
 			<mat-form-field floatLabel="never" class="w100">
 				<mat-label >Title</mat-label>
-				<input matInput formControlName="title">
+				<input matInput formControlName="title" [value]="getFields('title')">
 			</mat-form-field>
 
 			<mat-form-field floatLabel="never" class="w100">
 				<mat-label >Description</mat-label>
-				<textarea matInput formControlName="description"></textarea>
+				<textarea matInput formControlName="description" [value]="getFields('description')"></textarea>
 			</mat-form-field>
 
 			<div fxLayout.gt-sm='row' fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign="flex-start center">
 				<mat-form-field>
 					<mat-label>Select group</mat-label>
 					<mat-select formControlName="group">
-						<mat-option *ngFor="let item of groups; index as i" [value]="item"> {{ item }} </mat-option>
+						<mat-option *ngFor="let item of pacedData.groups; index as i" [value]="item"> {{ item }} </mat-option>
 					</mat-select>
 				</mat-form-field>
 
@@ -59,7 +59,14 @@ export class RemindEditorComponent implements OnInit {
       private formBuilder: FormBuilder,
       private reminderService: ReminderService,
       private toastService: ToasterService,
-      @Inject(MAT_DIALOG_DATA) public groups) { }
+      @Inject(MAT_DIALOG_DATA) public pacedData
+
+  ) { }
+
+
+  getFields(field:string) {
+   return this.pacedData.item && this.pacedData.item.event[field] || null;
+  }
 
   createForm() {
     this.remindItem = this.formBuilder.group(
@@ -71,15 +78,16 @@ export class RemindEditorComponent implements OnInit {
           description: []
         }
     );
-    this.remindItem.controls['group'].setValue(this.groups[0], { onlySelf: true });
+    this.remindItem.controls['group'].setValue(this.pacedData.groups[0], { onlySelf: true });
   };
 
 
+
   addNewGroup() {
-    let uniqueGroup =  this.remindItem.controls['newGroup'].value && !this.groups.includes( this.remindItem.controls['newGroup'].value );
+    let uniqueGroup =  this.remindItem.controls['newGroup'].value && !this.pacedData.groups.includes( this.remindItem.controls['newGroup'].value );
     if ( uniqueGroup ) {
-      this.groups.push(this.remindItem.controls['newGroup'].value);
-      this.reminderService.updateGroupReminders(this.groups);
+      this.pacedData.groups.push(this.remindItem.controls['newGroup'].value);
+      this.reminderService.updateGroupReminders(this.pacedData.groups);
       this.toastService.showToast('groupAddSuccess', 'Success');
     } else {
       this.toastService.showToast('groupAlreadyExist', 'warning');
@@ -95,6 +103,9 @@ export class RemindEditorComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+
+    console.log(this.pacedData);
+
   }
 
-}
+}//

@@ -105,6 +105,12 @@ export class AppComponent implements OnInit, OnDestroy {
       path: 'notes',
       requiredLogin: true,
       icon: 'notes'
+    },
+    {
+      label: 'Reminder',
+      path: 'reminder',
+      requiredLogin: true,
+      icon: 'calendar_today'
     }
   ];
 

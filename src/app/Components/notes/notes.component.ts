@@ -130,7 +130,6 @@ export class NotesComponent implements OnInit {
       }
         this.noteGroup.push(groupTo);
         this.updateGroups( this.noteGroup );
-
     }
     delGroup (index) {
       this.noteGroup =  this.noteGroup.filter( (j, i) => {

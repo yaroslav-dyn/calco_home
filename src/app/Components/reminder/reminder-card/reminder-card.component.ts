@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
+import {RemindEditorComponent} from "../../content-components/modals/remined-editor/remind-editor.component";
 
 @Component({
   selector: 'app-reminder-card',
   template: `
-      <div class="reminder">
+      <div class="reminder" (click)="onEventEdit.emit()">
 				<mat-accordion>
 					<mat-expansion-panel>
 						<mat-expansion-panel-header>
@@ -39,6 +40,7 @@ export class ReminderCardComponent implements OnInit {
   @Input () eventItem;
   @Input () index: number;
   @Output() delEvent = new EventEmitter();
+  @Output() onEventEdit = new EventEmitter();
 
 
   constructor(

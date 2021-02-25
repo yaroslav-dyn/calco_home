@@ -20,6 +20,7 @@ import {AcceptModalComponent} from "../content-components/modals/accept-modal/ac
 		 <app-reminder-card *ngFor="let event of (events | matchString:groupFilter); index as i"
         [eventItem]="event"
         [index]="i"
+        (onEventEdit)="editEvent(i, event)"                
         (delEvent)="openDeleteDialog(i, event, 'reminder')">
      </app-reminder-card>
      
@@ -51,7 +52,7 @@ export class ReminderComponent implements OnInit {
     const dialogRef =  this.dialog.open(RemindEditorComponent, {
       width: '50vw',
       height: '50vh',
-      data: this.groups,
+      data: Object.assign({},{groups: this.groups}),
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -62,10 +63,27 @@ export class ReminderComponent implements OnInit {
     });
   };
 
+  editEvent(index, event): void {
+    const dialogRef = this.dialog.open(RemindEditorComponent, {
+      width: '50vw',
+      height: '50vh',
+      data: Object.assign({item: {index, event}},{groups: this.groups}),
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      // this.updateEventItem(index, result);
+    });
+
+  }
+
   saveItem (item) {
     this.events.push(item);
     this.reminderService.updateReminders(this.events);
   };
+  updateEventItem(i, item) {
+    this.events[i] = item;
+    this.reminderService.updateReminders(this.events);
+  }
 
   openDeleteDialog(i, inst, type): void {
     const dialogRef = this.dialog.open(AcceptModalComponent, {
