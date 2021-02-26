@@ -1,14 +1,14 @@
-import {Injectable} from "@angular/core";
-import {StorageMap} from "@ngx-pwa/local-storage";
+import {Injectable} from '@angular/core';
+import {StorageMap} from '@ngx-pwa/local-storage';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 
 
 export class NotesService {
 
-  notes =  []
+  notes =  [];
 
   constructor(private storage: StorageMap) {}
 
@@ -17,12 +17,12 @@ export class NotesService {
  * Groups notes methods
  */
   getGroups() {
-    return  this.storage.get('groups', {type: "string"})
+    return  this.storage.get('groups', {type: 'string'});
   }
 
   updateGroups(groups) {
     this.storage.set( 'groups', JSON.stringify(groups), {type: 'string'}).subscribe({
-      next: () => {}, error: (error) => { console.log('error user', error)}
+      next: () => {}, error: (error) => { console.log('error user', error);}
     });
   }
   /*
@@ -34,12 +34,12 @@ export class NotesService {
  * Notes methods
  */
   getNotes() {
-     return  this.storage.get('notes', {type: "string"})
+     return  this.storage.get('notes', {type: 'string'});
   }
 
    updateNotes(notes) {
     this.storage.set( 'notes', JSON.stringify(notes), {type: 'string'}).subscribe({
-      next: () => {}, error: (error) => { console.log('error user', error)}
+      next: () => {}, error: (error) => { console.log('error user', error);}
     });
   }
 

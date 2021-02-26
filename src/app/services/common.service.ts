@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Constants} from "../constants.list";
+import {Injectable} from '@angular/core';
+import {Constants} from '../constants.list';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 
 export class CommonService  {
@@ -19,14 +19,14 @@ export class CommonService  {
         } break;
       case 'pass':
         if (formElement.get('password').hasError('required')) {
-          return this.constantList.messages.passwordCantBeBlank
+          return this.constantList.messages.passwordCantBeBlank;
         } else if (formElement.get('password').hasError('minlength')) {
-          return this.constantList.messages.passwordLengthError
+          return this.constantList.messages.passwordLengthError;
         } break;
       case 'repeatPassword':
-        return this.constantList.messages.passwordsDontMatch
+        return this.constantList.messages.passwordsDontMatch;
       case 'TermsConditions':
-        return this.constantList.messages.passwordsDontMatch
+        return this.constantList.messages.passwordsDontMatch;
       default:
         return '';
     }

@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Constants} from "../constants.list";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {Constants} from '../constants.list';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ToasterService {
 
