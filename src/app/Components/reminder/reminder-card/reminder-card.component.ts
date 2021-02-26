@@ -5,7 +5,7 @@ import {RemindEditorComponent} from "../../content-components/modals/remined-edi
 @Component({
   selector: 'app-reminder-card',
   template: `
-      <div class="reminder" (click)="onEventEdit.emit()">
+      <div class="reminder">
 				<mat-accordion>
 					<mat-expansion-panel>
 						<mat-expansion-panel-header>
@@ -16,6 +16,12 @@ import {RemindEditorComponent} from "../../content-components/modals/remined-edi
                 <div class="w100" fxLayout.gt-sm="row" fxLayout.xs="column"  fxLayoutAlign="space-between center" fxLayoutGap="10px"> 
                   <div> {{ eventItem.group }} </div>
                   <div> {{ eventItem.selectDate | date:"dd/MM/yy" }} </div>
+                  
+                  <mat-icon class="note_block__icon" aria-hidden="false" aria-label="edit" color="warn"
+                            matTooltip="Edit this event"
+                            matTooltipPosition="right"
+                            (click)="onEventEdit.emit()">edit</mat-icon>
+                  
 										<mat-icon class="note_block__icon" aria-hidden="false" aria-label="delete" color="warn"
 															matTooltip="Delete this event"
 															matTooltipPosition="right"

@@ -56,10 +56,7 @@ export class ReminderComponent implements OnInit {
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      if ( result ) {
-        this.saveItem(result);
-      }
-
+      if ( result ) this.saveItem(result);
     });
   };
 
@@ -70,10 +67,8 @@ export class ReminderComponent implements OnInit {
       data: Object.assign({item: {index, event}},{groups: this.groups}),
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      // this.updateEventItem(index, result);
+        if(index && result) this.updateEventItem(index, result);
     });
-
   }
 
   saveItem (item) {

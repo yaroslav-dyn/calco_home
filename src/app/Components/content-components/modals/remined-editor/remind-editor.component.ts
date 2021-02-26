@@ -10,19 +10,19 @@ import {ToasterService} from "../../../../services/toaster.service";
 		<form [formGroup]="remindItem">
 			<mat-form-field floatLabel="never" class="w100">
 				<mat-label>Choose a date</mat-label>
-				<input matInput [matDatepicker]="picker" formControlName="selectDate" [value]="getFields('selectDate')">
+				<input matInput [matDatepicker]="picker" formControlName="selectDate">
 				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker touchUi #picker startView="year"></mat-datepicker>
 			</mat-form-field>
 
 			<mat-form-field floatLabel="never" class="w100">
 				<mat-label >Title</mat-label>
-				<input matInput formControlName="title" [value]="getFields('title')">
+				<input matInput formControlName="title">
 			</mat-form-field>
 
 			<mat-form-field floatLabel="never" class="w100">
 				<mat-label >Description</mat-label>
-				<textarea matInput formControlName="description" [value]="getFields('description')"></textarea>
+				<textarea matInput formControlName="description"></textarea>
 			</mat-form-field>
 
 			<div fxLayout.gt-sm='row' fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign="flex-start center">
@@ -71,17 +71,14 @@ export class RemindEditorComponent implements OnInit {
   createForm() {
     this.remindItem = this.formBuilder.group(
         {
-          selectDate: ['', [Validators.required]],
-          title: ['', [Validators.required]],
-          group: ['', Validators.required],
+          selectDate: [this.getFields('selectDate'), [Validators.required]],
+          title: [this.getFields('title'), [Validators.required]],
+          group: [this.pacedData.groups[0], Validators.required],
           newGroup: [],
-          description: []
+          description: [this.getFields('description')]
         }
     );
-    this.remindItem.controls['group'].setValue(this.pacedData.groups[0], { onlySelf: true });
   };
-
-
 
   addNewGroup() {
     let uniqueGroup =  this.remindItem.controls['newGroup'].value && !this.pacedData.groups.includes( this.remindItem.controls['newGroup'].value );
@@ -103,9 +100,7 @@ export class RemindEditorComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-
     console.log(this.pacedData);
-
   }
 
 }//
