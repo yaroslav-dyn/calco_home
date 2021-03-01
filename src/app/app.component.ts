@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {MediaMatcher} from "@angular/cdk/layout";
-import {Constants} from "./constants.list";
-import {LoggedState} from "./services/loggedUser";
-import {LoginService} from "./services/login.service";
-import {RegisterService} from "./services/register.service";
+import {MediaMatcher} from '@angular/cdk/layout';
+import {Constants} from './constants.list';
+import {LoggedState} from './services/loggedUser';
+import {LoginService} from './services/login.service';
+import {RegisterService} from './services/register.service';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +32,7 @@ import {RegisterService} from "./services/register.service";
             <mat-icon class="dashboard-link__icon" aria-hidden="false" aria-label="menu">dashboard</mat-icon>
           </a>
           <a class="app_nav__link" (click)="logout()" *ngIf="loggedUser">
-            <mat-icon aria-hidden="false" aria-label="home">power_settings_new</mat-icon>
+            <mat-icon color="warn" aria-hidden="false" aria-label="home">power_settings_new</mat-icon>
           </a>
         </div>
 
@@ -49,7 +49,7 @@ import {RegisterService} from "./services/register.service";
               </a>
             </div>
             <a mat-list-item (click)="logout()" *ngIf="loggedUser">
-              <mat-icon aria-hidden="false" aria-label="home">power_settings_new</mat-icon>
+              <mat-icon aria-hidden="false" aria-label="home" color="warn">power_settings_new</mat-icon>
               {{constantList.getMessage('logout')}}
             </a>
           </mat-nav-list>
@@ -66,6 +66,17 @@ import {RegisterService} from "./services/register.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              private media: MediaMatcher,
+              public constantList: Constants,
+              private loginService: LoginService,
+              private loggedService: LoggedState,
+              private registerService: RegisterService) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
   mobileQuery: MediaQueryList;
   loggedUser: boolean;
   fillerNav = [
@@ -111,25 +122,20 @@ export class AppComponent implements OnInit, OnDestroy {
       path: 'reminder',
       requiredLogin: true,
       icon: 'calendar_today'
+    },
+    {
+      label: 'Vocabulary',
+      path: 'vocabulary',
+      requiredLogin: true,
+      icon: 'bookmarks'
     }
   ];
+
+  private _mobileQueryListener: () => void;
 
 
   logout() {
     this.loginService.logout();
-  }
-
-  private _mobileQueryListener: () => void;
-
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private media: MediaMatcher,
-              public constantList: Constants,
-              private loginService: LoginService,
-              private loggedService: LoggedState,
-              private registerService: RegisterService) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
   ngOnInit(): void {

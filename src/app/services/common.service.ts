@@ -5,9 +5,10 @@ import {Constants} from '../constants.list';
   providedIn: 'root'
 })
 
-export class CommonService  {
+export class CommonService {
 
-  constructor( private constantList: Constants) {}
+  constructor(private constantList: Constants) {
+  }
 
   getError(el, formElement) {
     switch (el) {
@@ -16,13 +17,15 @@ export class CommonService  {
           return 'email required';
         } else if (formElement.get('email').hasError('pattern')) {
           return 'invalid email';
-        } break;
+        }
+        break;
       case 'pass':
         if (formElement.get('password').hasError('required')) {
           return this.constantList.messages.passwordCantBeBlank;
         } else if (formElement.get('password').hasError('minlength')) {
           return this.constantList.messages.passwordLengthError;
-        } break;
+        }
+        break;
       case 'repeatPassword':
         return this.constantList.messages.passwordsDontMatch;
       case 'TermsConditions':

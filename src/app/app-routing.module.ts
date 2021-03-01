@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from "./Components/content-components/page-not-found/page-not-found.component";
-import { HomeComponent } from "./Components/home/home.component";
-import { LoginComponent } from './Components/login/login.component'
-import { LoginGuard } from "./services/login-gard.service";
+import { PageNotFoundComponent } from './Components/content-components/page-not-found/page-not-found.component';
+import { HomeComponent } from './Components/home/home.component';
+import { LoginComponent } from './Components/login/login.component';
+import { LoginGuard } from './services/login-gard.service';
 import { RegistrationComponent } from './Components/registration/registration.component';
-import { PostRegistrationComponent } from "./Components/registration/post/post-registration.component";
-import { ConverterComponent } from  './Components/converter/converter.component'
-import { TimerComponent } from "./Components/timer/timer.component";
-import { NotesComponent } from "./Components/notes/notes.component";
-import { ReminderComponent } from "./Components/reminder/reminder.component";
+import { PostRegistrationComponent } from './Components/registration/post/post-registration.component';
+import { ConverterComponent } from './Components/converter/converter.component';
+import { TimerComponent } from './Components/timer/timer.component';
+import { NotesComponent } from './Components/notes/notes.component';
+import { ReminderComponent } from './Components/reminder/reminder.component';
+import {VocabularyComponent} from './Components/vocabulary/vocabulary.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'notes', component: NotesComponent },
   { path: 'notes', component: NotesComponent },
   { path: 'reminder', component: ReminderComponent },
+  { path: 'vocabulary', component: VocabularyComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

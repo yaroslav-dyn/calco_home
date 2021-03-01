@@ -7,9 +7,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MatchPipe implements PipeTransform {
   transform(value, option) {
     if (option === 'all') {
-      return value
+      return value;
     } else {
-      return value.filter(el => el.group === option);
+      return value.filter(el => (el && el.group) === option) ? value.filter(el => (el && el.group) === option) : value;
     }
   }
 }

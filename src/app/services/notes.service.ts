@@ -22,7 +22,7 @@ export class NotesService {
 
   updateGroups(groups) {
     this.storage.set( 'groups', JSON.stringify(groups), {type: 'string'}).subscribe({
-      next: () => {}, error: (error) => { console.log('error user', error);}
+      next: () => {}, error: (error) => { console.log('error user', error); }
     });
   }
   /*
@@ -39,7 +39,7 @@ export class NotesService {
 
    updateNotes(notes) {
     this.storage.set( 'notes', JSON.stringify(notes), {type: 'string'}).subscribe({
-      next: () => {}, error: (error) => { console.log('error user', error);}
+      next: () => {}, error: (error) => { console.log('error user', error); }
     });
   }
 

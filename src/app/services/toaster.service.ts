@@ -2,13 +2,11 @@ import {Injectable} from '@angular/core';
 import {Constants} from '../constants.list';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
-export class ToasterService {
 
+export class ToasterService {
   Messages: any = this.constantList.messages;
   Const: any = this.constantList;
   constructor(private constantList: Constants,
@@ -20,5 +18,4 @@ export class ToasterService {
       horizontalPosition: 'right'
     });
   }
-
-}
+}//

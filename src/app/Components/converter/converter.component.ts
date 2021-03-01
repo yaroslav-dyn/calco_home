@@ -31,7 +31,6 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
           <ng-template mat-tab-label>
             <mat-icon>monitor_weight</mat-icon> weight
           </ng-template>
-          
           <form [formGroup]="converterGroupWeight" class="converter_form">
             <mat-form-field class="w100">
               <mat-label>kilograms</mat-label>
@@ -48,7 +47,6 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
               <input type="number" matInput placeholder="grams" formControlName="grams"/>
             </mat-form-field>
           </form>
-        
         </mat-tab>
         <mat-tab label="Third"> Feature </mat-tab>
       </mat-tab-group>
@@ -64,18 +62,18 @@ export class ConverterComponent implements OnInit {
     kilometers: 1,
     miles: 0.621371,
     mps: 1000
-  }
+  };
   public unitsMiles: {[name: string]: number} = {
     kilometers: 1.60934,
     miles: 1,
     mps: 1609.34
-  }
+  };
 
   public unitsMps: {[name: string]: number} = {
     mps: 1,
     kilometers: 0.001,
     miles: 0.000621371
-  }
+  };
 
 
   public converterGroupWeight: FormGroup;
@@ -84,19 +82,19 @@ export class ConverterComponent implements OnInit {
     kilograms: 1,
     pounds: 2.2046,
     grams: 1000
-  }
+  };
 
   public unitslb: { [name: string]: number } = {
     kilograms: 0.4535923,
     pounds: 1,
     grams: 453.5923
-  }
+  };
 
   public unitsG: {[name: string]: number} = {
     kilograms: 0.001,
    pounds: 0.0022046,
     grams: 1
-  }
+  };
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -106,13 +104,13 @@ export class ConverterComponent implements OnInit {
       kilometers: this.unitsKm.kilometers,
       miles: this.unitsKm.miles,
       mps: this.unitsKm.mps
-    })
+    });
 
     this.converterGroupWeight = this.formBuilder.group({
       kilograms: this.unitsKg.kilograms,
       pounds: this.unitsKg.pounds,
       grams: this.unitsKg.grams
-    })
+    });
 
   }
 

@@ -1,106 +1,105 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ReminderService} from "../../../../services/reminder.service";
-import {ToasterService} from "../../../../services/toaster.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ReminderService} from '../../../../services/reminder.service';
+import {ToasterService} from '../../../../services/toaster.service';
+import {MAT_DATE_FORMATS} from '@angular/material';
+import {TYPICAL_CALENDAR_FORMATS} from '../../../../constants.list';
 
 @Component({
   selector: 'app-reminder-editor',
+  providers: [
+    {provide: MAT_DATE_FORMATS, useValue: TYPICAL_CALENDAR_FORMATS}
+  ],
   template: `
-		<form [formGroup]="remindItem">
-			<mat-form-field floatLabel="never" class="w100">
-				<mat-label>Choose a date</mat-label>
-				<input matInput [matDatepicker]="picker" formControlName="selectDate">
-				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-				<mat-datepicker touchUi #picker startView="year"></mat-datepicker>
-			</mat-form-field>
+    <form [formGroup]="remindItem">
+      <mat-form-field floatLabel="never" class="w100">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="selectDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker startView="year"></mat-datepicker>
+      </mat-form-field>
 
-			<mat-form-field floatLabel="never" class="w100">
-				<mat-label >Title</mat-label>
-				<input matInput formControlName="title">
-			</mat-form-field>
+      <mat-form-field floatLabel="never" class="w100">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
 
-			<mat-form-field floatLabel="never" class="w100">
-				<mat-label >Description</mat-label>
-				<textarea matInput formControlName="description"></textarea>
-			</mat-form-field>
+      <mat-form-field floatLabel="never" class="w100">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
 
-			<div fxLayout.gt-sm='row' fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign="flex-start center">
-				<mat-form-field>
-					<mat-label>Select group</mat-label>
-					<mat-select formControlName="group">
-						<mat-option *ngFor="let item of pacedData.groups; index as i" [value]="item"> {{ item }} </mat-option>
-					</mat-select>
-				</mat-form-field>
+      <div fxLayout.gt-sm='row' fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign="flex-start center">
+        <mat-form-field>
+          <mat-label>Select group</mat-label>
+          <mat-select formControlName="group">
+            <mat-option *ngFor="let item of pacedData.groups; index as i" [value]="item"> {{ item }} </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-				<mat-form-field floatLabel="never"> 
-					<mat-label>Create group</mat-label>
-					<input matInput formControlName="newGroup">
-				</mat-form-field>
-        
-				<div>
-					<button mat-raised-button (click)="addNewGroup()" >Add</button>
-				</div>
-			</div>
-      
-			<div fxLayout="row" fxLayoutGap="10px">
-				<button mat-raised-button (click)="onNoClick()"> Cancel </button>
-				<button mat-raised-button color="accent" [disabled]="!remindItem.valid" [mat-dialog-close]="remindItem.value"> Save </button>
-			</div> 
-		</form>
+        <mat-form-field floatLabel="never">
+          <mat-label>Create group</mat-label>
+          <input matInput formControlName="newGroup">
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button (click)="addNewGroup()">Add</button>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="10px">
+        <button mat-raised-button (click)="onNoClick()"> Cancel</button>
+        <button mat-raised-button color="accent" [disabled]="!remindItem.valid" [mat-dialog-close]="remindItem.value"> Save</button>
+      </div>
+    </form>
   `,
   styleUrls: ['./remined-editor.component.scss']
 })
 export class RemindEditorComponent implements OnInit {
+
   public remindItem: FormGroup;
 
   constructor(
-      public dialogRef: MatDialogRef<RemindEditorComponent>,
-      private formBuilder: FormBuilder,
-      private reminderService: ReminderService,
-      private toastService: ToasterService,
-      @Inject(MAT_DIALOG_DATA) public pacedData
+    public dialogRef: MatDialogRef<RemindEditorComponent>,
+    private formBuilder: FormBuilder,
+    private reminderService: ReminderService,
+    private toastService: ToasterService,
+    @Inject(MAT_DIALOG_DATA) public pacedData) {
+  }
 
-  ) { }
-
-
-  getFields(field:string) {
-   return this.pacedData.item && this.pacedData.item.event[field] || null;
+  getFields(field: string) {
+    return this.pacedData.item && this.pacedData.item.event[field] || null;
   }
 
   createForm() {
     this.remindItem = this.formBuilder.group(
-        {
-          selectDate: [this.getFields('selectDate'), [Validators.required]],
-          title: [this.getFields('title'), [Validators.required]],
-          group: [this.pacedData.groups[0], Validators.required],
-          newGroup: [],
-          description: [this.getFields('description')]
-        }
+      {
+        selectDate: [this.getFields('selectDate'), [Validators.required]],
+        title: [this.getFields('title'), [Validators.required]],
+        group: [this.pacedData.groups[0], Validators.required],
+        newGroup: [],
+        description: [this.getFields('description')]
+      }
     );
-  };
+  }
 
   addNewGroup() {
-    let uniqueGroup =  this.remindItem.controls['newGroup'].value && !this.pacedData.groups.includes( this.remindItem.controls['newGroup'].value );
-    if ( uniqueGroup ) {
+    const uniqueGroup = this.remindItem.controls['newGroup'].value && !this.pacedData.groups.includes(this.remindItem.controls['newGroup'].value);
+    if (uniqueGroup) {
       this.pacedData.groups.push(this.remindItem.controls['newGroup'].value);
       this.reminderService.updateGroupReminders(this.pacedData.groups);
       this.toastService.showToast('groupAddSuccess', 'Success');
     } else {
       this.toastService.showToast('groupAlreadyExist', 'warning');
     }
-
   }
-
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-
   ngOnInit() {
     this.createForm();
-    console.log(this.pacedData);
   }
-
 }//

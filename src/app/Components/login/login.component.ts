@@ -1,13 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Constants} from "../../constants.list";
+import {Constants} from '../../constants.list';
 import {UserModel} from '../registration/User.model';
-import {Router} from '@angular/router';
 import {LoginService} from '../../services/login.service';
-import {LoggedState} from '../../services/loggedUser';
-
 import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {CommonService} from "../../services/common.service";
+import {CommonService} from '../../services/common.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -16,7 +13,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-
 
 @Component({
   selector: 'app-login',
@@ -64,7 +60,7 @@ export class LoginComponent implements OnInit {
     email: ''
   };
 
-  constructor(private constantList: Constants,
+  constructor(public constantList: Constants,
               private loginService: LoginService,
               private formBuilder: FormBuilder,
               private commonService: CommonService
@@ -86,7 +82,7 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.loginGroup = this.formBuilder.group({
-      'email': ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      'email': ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       'password': ['', [Validators.required, Validators.minLength(6)]]
     });
   }

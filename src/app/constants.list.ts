@@ -1,15 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {MAT_NATIVE_DATE_FORMATS, MatDateFormats} from '@angular/material';
 
 @Injectable()
-export class Constants  {
-
-   Project: { name: string; baseUrl?: string } = {
+export class Constants {
+  Project: { name: string; baseUrl?: string } = {
     name: 'CalcoHome',
     baseUrl: ''
-  }
-
-
-  messages: {[name: string]: string} = {
+  };
+  messages: { [name: string]: string } = {
     'emailCantBeBlank': 'Email field can\'t be blank',
     'wrongEmailPattern': 'The email id doesn\'t seem right',
     'passwordCantBeBlank': 'Password field can\'t be blank',
@@ -29,14 +27,27 @@ export class Constants  {
     'timeIsOut': 'Time is out',
     'notes': 'Notes',
     'reminder': 'Reminder',
+    'vocabulary': 'Vocabulary',
     'askForDelete': 'You really want to delete',
-    'groupAddSuccess' : 'Group was added successfully',
-    'groupAlreadyExist' : 'Group already exist',
-    'userNotFound' : 'User not found!'
+    'groupAddSuccess': 'Group was added successfully',
+    'groupAlreadyExist': 'Group already exist',
+    'userNotFound': 'User not found!',
+    'cantFetchWord': 'Sorry API doesn\'t available now'
   };
 
   public getMessage(str) {
     return this.messages[str];
   }
-
 }
+
+export const TYPICAL_CALENDAR_FORMATS: MatDateFormats = {
+  ...MAT_NATIVE_DATE_FORMATS,
+  display: {
+    ...MAT_NATIVE_DATE_FORMATS.display,
+    dateInput: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    } as Intl.DateTimeFormatOptions,
+  }
+};
