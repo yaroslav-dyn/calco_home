@@ -48,9 +48,10 @@ import {Constants} from '../../constants.list';
           </a>
         </mat-grid-tile>
         <mat-grid-tile class="plotter_item">
-          <a routerLink="" class="text_center plotter_link">
+          <a routerLink="qr-generator" class="text_center plotter_link">
             <div>
-              <mat-icon aria-hidden="false" class="plotter_icon"> outlet</mat-icon>
+              <mat-icon aria-hidden="false" class="plotter_icon"> qr_code</mat-icon>
+              <div>{{constantList.getMessage('qr_code')}}</div>
             </div>
           </a>
         </mat-grid-tile>
