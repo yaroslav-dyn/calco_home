@@ -19,49 +19,41 @@ import {TYPICAL_CALENDAR_FORMATS} from '../../../../constants.list';
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker startView="year"></mat-datepicker>
       </mat-form-field>
-
       <mat-form-field floatLabel="never" class="w100">
         <mat-label>Title</mat-label>
         <input matInput formControlName="title">
       </mat-form-field>
-
       <mat-form-field floatLabel="never" class="w100">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
-
-      <div fxLayout.gt-sm='row' fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign="flex-start center">
+      <div fxLayout.gt-sm='row' fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign.gt-xs="flex-start center">
         <mat-form-field>
           <mat-label>Select group</mat-label>
           <mat-select formControlName="group">
             <mat-option *ngFor="let item of pacedData.groups; index as i" [value]="item"> {{ item }} </mat-option>
           </mat-select>
         </mat-form-field>
-
         <mat-form-field floatLabel="never">
           <mat-label>Create group</mat-label>
           <input matInput formControlName="newGroup">
         </mat-form-field>
-
-        <div>
-          <button mat-raised-button (click)="addNewGroup()">Add</button>
-        </div>
+        <button class="add_group-btn" mat-raised-button (click)="addNewGroup()">Add</button>
       </div>
-
       <div fxLayout="row" fxLayoutGap="10px">
         <button mat-raised-button (click)="onNoClick()"> Cancel</button>
         <button mat-raised-button color="accent" [disabled]="!remindItem.valid" [mat-dialog-close]="remindItem.value"> Save</button>
       </div>
     </form>
   `,
-  styleUrls: ['./remined-editor.component.scss']
+  styleUrls: ['./remained-editor.component.scss']
 })
-export class RemindEditorComponent implements OnInit {
+export class RemaindEditorComponent implements OnInit {
 
   public remindItem: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<RemindEditorComponent>,
+    public dialogRef: MatDialogRef<RemaindEditorComponent>,
     private formBuilder: FormBuilder,
     private reminderService: ReminderService,
     private toastService: ToasterService,
@@ -85,7 +77,8 @@ export class RemindEditorComponent implements OnInit {
   }
 
   addNewGroup() {
-    const uniqueGroup = this.remindItem.controls['newGroup'].value && !this.pacedData.groups.includes(this.remindItem.controls['newGroup'].value);
+    const newGroupField = this.remindItem.controls['newGroup'].value;
+    const uniqueGroup = newGroupField && !this.pacedData.groups.includes(this.remindItem.controls['newGroup'].value);
     if (uniqueGroup) {
       this.pacedData.groups.push(this.remindItem.controls['newGroup'].value);
       this.reminderService.updateGroupReminders(this.pacedData.groups);

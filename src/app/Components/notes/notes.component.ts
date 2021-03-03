@@ -56,7 +56,7 @@ import {MatchPipe} from '../../_helpers/pipes/match.pipe';
                              (change)="noteChange(i, $event, 'title')" [value]="note.title" [name]="'noteTitle' + i">
                     </mat-form-field>
                     <mat-form-field class="w100" *ngIf="note.edit">
-									<textarea rows="3" matInput
+                    <textarea rows="3" matInput
                             (change)="noteChange(i, $event, 'text')" [value]="note.text" [name]="'noteText' + i"></textarea>
                     </mat-form-field>
                   </form>
@@ -143,8 +143,8 @@ export class NotesComponent implements OnInit {
   editGroup(index, title) {
     if (this.editGroupMarker) {
       const dialogRef = this.dialog.open(NoteEditorComponent, {
-        width: '50vw',
-        height: '50vh',
+        panelClass: 'app_modal',
+        maxWidth: 'auto',
         data: title
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -183,8 +183,8 @@ export class NotesComponent implements OnInit {
   editNote(index, note): void {
     if (!note.edit) {
       const dialogRef = this.dialog.open(NoteEditorComponent, {
-        width: '50vw',
-        height: '50vh',
+        panelClass: 'app_modal',
+        maxWidth: 'auto',
         data: note
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -203,13 +203,6 @@ export class NotesComponent implements OnInit {
 
   noteChange(index, text, type): void {
     type === 'text' ? this.allNotes[index].text = text.target.value : this.allNotes[index].title = text.target.value;
-    // this.allNotes.forEach( el => {
-    //   if(el.timeID === index.timeID) {
-    //     console.log(el);
-    //    // type === 'text' ? el.text = text.target.value : el.title = text.target.value;
-    //   }
-    //
-    // });
     this.notesService.updateNotes(this.allNotes);
   }
 

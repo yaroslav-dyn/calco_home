@@ -18,24 +18,26 @@ import {RegisterService} from './services/register.service';
         <h1 class="app_menu__logo app_nav__link" fxShow fxHide.lt-md="true">
           <a class="app_nav__link" [routerLink]="'/'">{{ constantList.Project.name }}</a>
         </h1>
-        <div fxHide fxShow.lt-md class="app_menu__dashboard-link">
-          <a class="dashboard-link" routerLink="/">
-            <mat-icon class="dashboard-link__icon" aria-hidden="false" aria-label="menu">dashboard</mat-icon>
-          </a>
-        </div>
-        <div class="app_menu__top-links" fxShow fxHide.lt-md="true">
+        <div class="app_menu__top-links" fxShow fxLayoutAlign="end center">
+          <div class="app_nav__link" *ngIf="loggedUser">
+            <button mat-button routerLink="/">
+              <mat-icon class="dashboard-link__icon" aria-hidden="false" aria-label="menu">dashboard</mat-icon>
+            </button>
+            <button mat-button [matMenuTriggerFor]="menu">
+              <mat-icon class="dashboard-link__icon" aria-hidden="false" aria-label="menu">account_box</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="'profile'">Profile</button>
+              <button mat-menu-item (click)="logout()" *ngIf="loggedUser">
+                <mat-icon color="warn" aria-hidden="false" aria-label="home">power_settings_new</mat-icon>
+              </button>
+            </mat-menu>
+          </div>
           <a class="app_nav__link" routerLink="login" routerLinkActive="active"
              *ngIf="!loggedUser">{{ constantList.getMessage('login') }}</a>
           <a class="app_nav__link" routerLink="sign-up" routerLinkActive="active"
              *ngIf="!loggedUser">{{ constantList.getMessage('signUp') }}</a>
-          <a mat-list-item *ngIf="loggedUser" routerLink="/">
-            <mat-icon class="dashboard-link__icon" aria-hidden="false" aria-label="menu">dashboard</mat-icon>
-          </a>
-          <a class="app_nav__link" (click)="logout()" *ngIf="loggedUser">
-            <mat-icon color="warn" aria-hidden="false" aria-label="home">power_settings_new</mat-icon>
-          </a>
         </div>
-
       </mat-toolbar>
       <mat-sidenav-container class="app_sidenav__container h100" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
@@ -77,6 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
+
   mobileQuery: MediaQueryList;
   loggedUser: boolean;
   fillerNav = [
@@ -128,7 +131,13 @@ export class AppComponent implements OnInit, OnDestroy {
       path: 'vocabulary',
       requiredLogin: true,
       icon: 'bookmarks'
-    }
+    },
+    {
+      label: 'QR code generator',
+      path: 'qr-generator',
+      requiredLogin: true,
+      icon: 'qr_code'
+    },
   ];
 
   private _mobileQueryListener: () => void;
@@ -147,10 +156,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.loginService.checkLogin();
     this.loggedService.loggedState.subscribe((loggedUser) => this.loggedUser = loggedUser);
-  }
-
-  testTemple(e) {
-    console.log(e);
   }
 
 

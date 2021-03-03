@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import NewEvent = AppTypes.NewEvent;
 import {MatDialog} from '@angular/material/dialog';
-import {RemindEditorComponent} from '../content-components/modals/remined-editor/remind-editor.component';
+import {RemaindEditorComponent} from '../content-components/modals/remained-editor/remaind-editor.component';
 import {ReminderService} from '../../services/reminder.service';
 import {AcceptModalComponent} from '../content-components/modals/accept-modal/accept-modal.component';
 
@@ -41,14 +41,14 @@ export class ReminderComponent implements OnInit {
   }
 
   addEditEvent(index, event): void {
-    const dialogRef = this.dialog.open(RemindEditorComponent, {
-      width: '50vw',
-      height: '50vh',
-      data: Object.assign(index ? {item: {index, event}} : {}, {groups: this.groups}),
+    const dialogRef = this.dialog.open(RemaindEditorComponent, {
+      panelClass: 'app_modal',
+      maxWidth: 'auto',
+      data: Object.assign(event ? {item: {index, event}} : {}, {groups: this.groups}),
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (index && result) {
+      if (event && result) {
         this.updateEventItem(index, result);
       } else {
         this.saveItem(result);

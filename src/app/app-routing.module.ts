@@ -11,10 +11,13 @@ import { TimerComponent } from './Components/timer/timer.component';
 import { NotesComponent } from './Components/notes/notes.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import {VocabularyComponent} from './Components/vocabulary/vocabulary.component';
+import {QrGeneratorComponent} from './Components/qr-generator/qr-generator.component';
+import {ProfileComponent} from './Components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'sign-up', component: RegistrationComponent },
   { path: 'sign-up/thanks', component: PostRegistrationComponent },
   { path: 'converter', component: ConverterComponent },
@@ -23,6 +26,7 @@ const routes: Routes = [
   { path: 'notes', component: NotesComponent },
   { path: 'reminder', component: ReminderComponent },
   { path: 'vocabulary', component: VocabularyComponent },
+  { path: 'qr-generator', component: QrGeneratorComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

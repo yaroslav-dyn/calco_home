@@ -4,7 +4,7 @@
 
 html, body { height: 100%; overflow-x: hidden }
 body {
-  min-width: 425px;
+  min-width: 374px;
   margin: 0;
   padding-top: 60px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -22,14 +22,13 @@ a {
 
 
 .app_nav__link {
-  color: #444;
   font-size: 14px;
   text-decoration: none;
   &.active {
     background: rgba(0,0,0,0.6);
   }
   &:hover {
-    color: lighten(#444, 5%);
+    //color: lighten(#444, 5%);
     text-decoration: inherit;
   }
   &:focus, &:active, &:visited {

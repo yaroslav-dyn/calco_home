@@ -10,12 +10,12 @@ export class FormatDate implements PipeTransform {
 
   transform(date, option) {
 
-    let opt = option ? option : this.defaultOption;
+    const opt = option ? option : this.defaultOption;
 
-    let configDate = new Intl.DateTimeFormat('en', opt);
-    let inputDate = new Date(date);
+    const configDate = new Intl.DateTimeFormat('en', opt);
+    const inputDate = new Date(date);
 
-    const [{ value: month },,{ value: day },,{ value: year }] = configDate.formatToParts(inputDate);
-    return `${day} / ${month} / ${year}`
+    const [{ value: month }, , { value: day }, , { value: year }] = configDate.formatToParts(inputDate);
+    return `${day} / ${month} / ${year}`;
   }
 }

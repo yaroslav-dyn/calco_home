@@ -1,0 +1,29 @@
+#uploader {
+  display: none
+}
+
+.uploader {
+  &_avatar {
+    > img {
+      width: 100%;
+      max-width: 240px;
+      max-height: 240px;
+      height: auto;
+      display: inline-block;
+    }
+  }
+  &_label {
+    cursor: pointer;
+    display: inline-block;
+    .empty_avatar {
+      font-size: 48px;
+    }
+    .empty_cont {
+      display: inline-block;
+      padding: 8px;
+      background-color: #673ab7;
+      color: #fff;
+      border-radius: 6px;
+    }
+  }
+}

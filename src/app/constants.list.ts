@@ -28,11 +28,14 @@ export class Constants {
     'notes': 'Notes',
     'reminder': 'Reminder',
     'vocabulary': 'Vocabulary',
+    'qr_code': 'QrCode',
     'askForDelete': 'You really want to delete',
     'groupAddSuccess': 'Group was added successfully',
     'groupAlreadyExist': 'Group already exist',
     'userNotFound': 'User not found!',
-    'cantFetchWord': 'Sorry API doesn\'t available now'
+    'cantFetchWord': 'Sorry API doesn\'t available now',
+    'saveProfileSuccess': 'Profile has been saved!',
+    'saveProfileError': 'Profile hasn\'t been saved! Please try again.',
   };
 
   public getMessage(str) {

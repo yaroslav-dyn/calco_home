@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
-import {TermsModalComponent} from "./terms-modal.component";
+import {TermsModalComponent} from './terms-modal.component';
 
 
 @Component({
@@ -20,8 +20,8 @@ export class TermsComponent  {
     dialogConfig.autoFocus = true;
 
     this.dialog.open(TermsModalComponent, {
-      width: '80vw',
-      height: '80vh',
+      panelClass: 'app_modal',
+      maxWidth: 'auto',
       disableClose: true
     });
 

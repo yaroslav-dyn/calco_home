@@ -33,11 +33,15 @@ import { AcceptModalComponent } from './Components/content-components/modals/acc
 import { NoteEditorComponent } from './Components/content-components/modals/note-editor/note-editor.component';
 import { MatchPipe } from './_helpers/pipes/match.pipe';
 import { ReminderComponent } from './Components/reminder/reminder.component';
-import { RemindEditorComponent } from './Components/content-components/modals/remined-editor/remind-editor.component';
+import { RemaindEditorComponent } from './Components/content-components/modals/remained-editor/remaind-editor.component';
 import { ReminderCardComponent } from './Components/reminder/reminder-card/reminder-card.component';
 import {FormatDate} from './_helpers/pipes/formatDate';
 import { ReminderControlsComponent } from './Components/reminder/reminder-controls/reminder-controls.component';
 import { VocabularyComponent } from './Components/vocabulary/vocabulary.component';
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
+import { QrGeneratorComponent } from './Components/qr-generator/qr-generator.component';
+import { ProfileComponent } from './Components/profile/profile.component';
+import {FileUploaderComponent} from './Components/content-components/file-uploader';
 
 
 @NgModule({
@@ -61,10 +65,13 @@ import { VocabularyComponent } from './Components/vocabulary/vocabulary.componen
     MatchPipe,
     FormatDate,
     ReminderComponent,
-    RemindEditorComponent,
+    RemaindEditorComponent,
     ReminderCardComponent,
     ReminderControlsComponent,
-    VocabularyComponent
+    VocabularyComponent,
+    QrGeneratorComponent,
+    ProfileComponent,
+    FileUploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +83,8 @@ import { VocabularyComponent } from './Components/vocabulary/vocabulary.componen
     FormsModule,
     ReactiveFormsModule,
     StorageModule.forRoot({ IDBNoWrap: true }),
-    CountdownModule
+    CountdownModule,
+    NgxQRCodeModule
   ],
   providers: [Constants, LoginService, RegisterService, LoggedState, LoaderService, LoaderInterceptorService, LoginGuard,
     {
@@ -85,6 +93,6 @@ import { VocabularyComponent } from './Components/vocabulary/vocabulary.componen
       multi: true
     }],
   bootstrap: [AppComponent],
-  entryComponents: [TermsModalComponent, AcceptModalComponent, NoteEditorComponent, RemindEditorComponent]
+  entryComponents: [TermsModalComponent, AcceptModalComponent, NoteEditorComponent, RemaindEditorComponent]
 })
 export class AppModule { }

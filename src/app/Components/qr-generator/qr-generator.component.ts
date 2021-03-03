@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from '@techiediaries/ngx-qrcode';
 
 @Component({
@@ -9,7 +9,7 @@ import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from '@techiediar
         QR Code Generator
       </h2>
       <mat-form-field floatLabel="never" class="w100">
-        <mat-label>Put text here:</mat-label>
+        <mat-label>Put text or link here:</mat-label>
         <input matInput [(ngModel)]="qrValue">
       </mat-form-field>
       <mat-card class="qr-container" *ngIf="qrValue">
@@ -23,13 +23,17 @@ import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from '@techiediar
   `,
   styles: ['.qr-container {display: flex; justify-content: center}']
 })
-export class QrGeneratorComponent {
+export class QrGeneratorComponent implements OnDestroy {
 
   public elementType = NgxQrcodeElementTypes.URL;
   public correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
-  public qrValue = '';
+  public qrValue: string;
 
   constructor() {
+  }
+
+  ngOnDestroy() {
+    this.qrValue = '';
   }
 
 }//

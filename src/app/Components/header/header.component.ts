@@ -10,7 +10,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 
   `]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
 
 
@@ -24,11 +24,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
-
-
-
-  ngOnInit() {
   }
 
 }

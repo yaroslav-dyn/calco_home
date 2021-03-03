@@ -4,10 +4,10 @@ import {RegisterService} from '../../services/register.service';
 import { Router } from '@angular/router';
 import {ToasterService} from '../../services/toaster.service';
 import {Constants} from '../../constants.list';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CommonService} from "../../services/common.service";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CommonService} from '../../services/common.service';
 import { MustMatch } from '../../_helpers/must-match.validator';
-import {TermsService} from "../../services/terms.service";
+import {TermsService} from '../../services/terms.service';
 
 @Component({
   selector: 'app-registration',
@@ -61,8 +61,6 @@ import {TermsService} from "../../services/terms.service";
 export class RegistrationComponent implements OnInit {
   public regGroup: FormGroup;
   private user: UserModel;
-  passModel: string
-
     regUser: {password: string, email: string} = {
       password: '',
       email: ''
@@ -85,18 +83,18 @@ export class RegistrationComponent implements OnInit {
     this.createForm();
     this.termsService.termsState.subscribe( state => {
       this.regGroup.controls['termsConditions'].setValue(state);
-    })
+    });
   }
 
   get f() { return this.regGroup.controls; }
 
   createForm() {
     this.regGroup = this.formBuilder.group({
-      email : ['', [ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      email : ['', [ Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       password : ['', [Validators.required, Validators.minLength(6)]],
       repeatPassword : ['', [Validators.required]],
       termsConditions: ['', [Validators.requiredTrue]]
-    },{
+    }, {
       validator: MustMatch('password', 'repeatPassword')
     });
   }
