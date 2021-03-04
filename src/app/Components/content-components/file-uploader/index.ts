@@ -1,12 +1,6 @@
 import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-
-export interface FileObject {
-  imageBlob: string;
-  imageData: Blob;
-  name: string;
-  converted?: string;
-}
+import FileObject = AppTypes.FileObject;
 
 @Component({
   selector: 'app-file-uploader',
@@ -17,8 +11,8 @@ export interface FileObject {
       multi: true
     }
   ],
-    template: `
-    <div>
+  template: `
+    <div class="avatar_container">
       <label class="uploader_label" for="uploader">
         <div class="uploader_avatar" *ngIf="showAvatar && getImgSrc">
           <img [src]="getImgSrc" alt="avatar">
@@ -36,11 +30,12 @@ export interface FileObject {
 export class FileUploaderComponent {
 
   @Input() showAvatar: boolean;
+  @Input() convertedImg: object;
   @Output() fileUploaded = new EventEmitter();
   onChange: Function;
 
 
-  public fileObject: FileObject  = {
+  public fileObject: FileObject = {
     imageBlob: null,
     imageData: null,
     name: null,
@@ -52,37 +47,29 @@ export class FileUploaderComponent {
   constructor(private host: ElementRef<HTMLInputElement>) {
   }
 
-
-
-
-  writeValue( value: null ) {
+  writeValue(value: null) {
     // clear file input
     this.host.nativeElement.value = '';
     this.file = null;
   }
 
 
-  @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
+  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
     const file = event && event.item(0);
     this.onChange(file);
     this.file = file;
+    this.readThis(file);
   }
 
-  registerOnChange( fn: Function ) {
+  registerOnChange(fn: Function) {
     this.onChange = fn;
   }
 
-  registerOnTouched( fn: Function ) {
-  }
-
-
-  uploadAvatar($event): void {
-    this.readThis($event.target).then(() => {
-    });
+  registerOnTouched(fn: Function) {
   }
 
   async readThis(inputValue: any) {
-    const file: File = inputValue.files[0];
+    const file: File = inputValue;
     this.fileObject = {
       imageBlob: URL.createObjectURL(file),
       imageData: file,
@@ -109,7 +96,8 @@ export class FileUploaderComponent {
   }
 
   get getImgSrc() {
-    return this.fileObject.converted ? this.fileObject.converted : null;
+    return this.fileObject.converted ? this.fileObject.converted : this.convertedImg;
   }
+
 
 }//

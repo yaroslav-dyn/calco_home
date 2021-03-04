@@ -1,7 +1,9 @@
 #uploader {
   display: none
 }
-
+.avatar_container {
+  text-align: center;
+}
 .uploader {
   &_avatar {
     > img {

@@ -32,15 +32,15 @@ import {MatchPipe} from '../../_helpers/pipes/match.pipe';
       <!-- ##  -->
       <div fxFlex.gt-sm="80" class="notes_items">
         <div class="notes_panel__bgap" fxLayoutGap="10px" [style.zIndex]="1000">
-          <button [ngClass]="{'active-type': noteLayout === 'column wrap' }" (click)="changeNoteLayout('column wrap')" mat-raised-button>
+          <button fxHide.xs [ngClass]="{'active-type': noteLayout === 'column wrap' }" (click)="changeNoteLayout('column wrap')" mat-raised-button>
             <mat-icon> view_list</mat-icon>
           </button>
-          <button [ngClass]="{'active-type': noteLayout === 'row wrap' }" (click)="changeNoteLayout('row wrap')" mat-raised-button>
+          <button fxHide.xs [ngClass]="{'active-type': noteLayout === 'row wrap' }" (click)="changeNoteLayout('row wrap')" mat-raised-button>
             <mat-icon> view_module</mat-icon>
           </button>
           <mat-slide-toggle matTooltip="Edit Notes" [(ngModel)]="editNotesMarker"></mat-slide-toggle>
         </div>
-        <div [fxLayout]="noteLayout" fxLayoutAlign="start stretch">
+        <div [fxLayout]="noteLayout" fxLayoutAlign="start stretch" fxLayoutGap="10px">
           <div *ngFor="let note of allNotes; index as i" class="note_card">
             <mat-card *ngIf="note.group === groupFilter || groupFilter === 'all'">
               <div class="note_block">

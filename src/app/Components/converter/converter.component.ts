@@ -1,168 +1,159 @@
-import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Units} from '../../services/units-service';
 
 @Component({
   selector: 'app-converter',
   template: `
     <!--  Start template  -->
-      <mat-tab-group class="half-screen">
-        <mat-tab>
-          <ng-template mat-tab-label>
-              <mat-icon>speed</mat-icon> Speed
-          </ng-template>
-          <form [formGroup]="converterGroup" class="converter_form">
-            <mat-form-field class="w100">
-              <mat-label>kilometers</mat-label>
-              <input type="number" matInput placeholder="kilometers" formControlName="kilometers"/>
-            </mat-form-field>
-            <br>
-            <mat-form-field class="w100">
-              <mat-label>miles</mat-label>
-              <input type="number" matInput placeholder="miles" formControlName="miles"/>
-            </mat-form-field>
-            <br>
-            <mat-form-field class="w100">
-              <mat-label>meters</mat-label>
-              <input type="number" matInput placeholder="meter per second" formControlName="mps"/>
-            </mat-form-field>
-          </form>
-        </mat-tab>
-        <mat-tab label="Second">
-          <ng-template mat-tab-label>
-            <mat-icon>monitor_weight</mat-icon> weight
-          </ng-template>
-          <form [formGroup]="converterGroupWeight" class="converter_form">
-            <mat-form-field class="w100">
-              <mat-label>kilograms</mat-label>
-              <input type="number" matInput placeholder="kilograms" formControlName="kilograms"/>
-            </mat-form-field>
-            <br>
-            <mat-form-field class="w100">
-              <mat-label>pounds</mat-label>
-              <input type="number" matInput placeholder="pounds" formControlName="pounds"/>
-            </mat-form-field>
-            <br>
-            <mat-form-field class="w100">
-              <mat-label>grams</mat-label>
-              <input type="number" matInput placeholder="grams" formControlName="grams"/>
-            </mat-form-field>
-          </form>
-        </mat-tab>
-        <mat-tab label="Third"> Feature </mat-tab>
-      </mat-tab-group>
+    <mat-tab-group class="half-screen">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>speed</mat-icon>
+          Speed
+        </ng-template>
+        <form [formGroup]="converterGroupSpeed" class="converter_form" (input)="someChange($event)">
+          <mat-form-field class="w100">
+            <mat-label>kilometers</mat-label>
+            <input type="number" matInput placeholder="kilometers" formControlName="kilometers"/>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="w100">
+            <mat-label>miles</mat-label>
+            <input type="number" matInput placeholder="miles" formControlName="miles"/>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="w100">
+            <mat-label>meters</mat-label>
+            <input type="number" matInput placeholder="meter per second" formControlName="mps"/>
+          </mat-form-field>
+        </form>
+      </mat-tab>
+      <mat-tab label="Second">
+        <ng-template mat-tab-label>
+          <mat-icon>monitor_weight</mat-icon>
+          weight
+        </ng-template>
+        <form [formGroup]="converterGroupWeight" class="converter_form" (input)="someChange($event)">
+          <mat-form-field class="w100">
+            <mat-label>kilograms</mat-label>
+            <input type="number" matInput placeholder="kilograms" formControlName="kilograms"/>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="w100">
+            <mat-label>pounds</mat-label>
+            <input type="number" matInput placeholder="pounds" formControlName="pounds"/>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="w100">
+            <mat-label>grams</mat-label>
+            <input type="number" matInput placeholder="grams" formControlName="grams"/>
+          </mat-form-field>
+        </form>
+      </mat-tab>
+      <mat-tab label="Length">
+        <ng-template mat-tab-label>
+          <mat-icon>square_foot</mat-icon>
+          Length
+        </ng-template>
+        <form [formGroup]="converterGroupLength" class="converter_form" (input)="someChange($event)">
+          <mat-form-field class="w100">
+            <mat-label>foot</mat-label>
+            <input type="number" matInput placeholder="foot" formControlName="foot"/>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="w100">
+            <mat-label>inches</mat-label>
+            <input type="number" matInput placeholder="inches" formControlName="inches"/>
+          </mat-form-field>
+          <mat-form-field class="w100">
+            <mat-label>centimeters</mat-label>
+            <input type="number" matInput placeholder="centimeters" formControlName="centimeters"/>
+          </mat-form-field>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
     <!--  end template  -->
   `,
   styleUrls: ['./converter.component.scss']
 })
 export class ConverterComponent implements OnInit {
 
-  public converterGroup: FormGroup;
-
-  public unitsKm: {[name: string]: number} = {
-    kilometers: 1,
-    miles: 0.621371,
-    mps: 1000
-  };
-  public unitsMiles: {[name: string]: number} = {
-    kilometers: 1.60934,
-    miles: 1,
-    mps: 1609.34
-  };
-
-  public unitsMps: {[name: string]: number} = {
-    mps: 1,
-    kilometers: 0.001,
-    miles: 0.000621371
-  };
-
-
+  public converterGroupSpeed: FormGroup;
   public converterGroupWeight: FormGroup;
+  public converterGroupLength: FormGroup;
 
-  public unitsKg: { [name: string]: number } = {
-    kilograms: 1,
-    pounds: 2.2046,
-    grams: 1000
-  };
-
-  public unitslb: { [name: string]: number } = {
-    kilograms: 0.4535923,
-    pounds: 1,
-    grams: 453.5923
-  };
-
-  public unitsG: {[name: string]: number} = {
-    kilograms: 0.001,
-   pounds: 0.0022046,
-    grams: 1
-  };
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, public units: Units) {
+  }
 
   createForm() {
-
-    this.converterGroup = this.formBuilder.group({
-      kilometers: this.unitsKm.kilometers,
-      miles: this.unitsKm.miles,
-      mps: this.unitsKm.mps
+    this.converterGroupSpeed = this.formBuilder.group({
+      kilometers: this.units.unitsKm.kilometers,
+      miles: this.units.unitsKm.miles,
+      mps: this.units.unitsKm.mps
     });
 
     this.converterGroupWeight = this.formBuilder.group({
-      kilograms: this.unitsKg.kilograms,
-      pounds: this.unitsKg.pounds,
-      grams: this.unitsKg.grams
+      kilograms: this.units.unitsKg.kilograms,
+      pounds: this.units.unitsKg.pounds,
+      grams: this.units.unitsKg.grams
     });
 
+    this.converterGroupLength = this.formBuilder.group({
+      foot: this.units.unitsFoot.foot,
+      inches: this.units.unitsFoot.inches,
+      centimeters: this.units.unitsFoot.centimeters,
+    });
   }
 
+  someChange(e) {
+    this.unitCalculate(e.target.getAttribute('formcontrolname'), e.target.value);
+  }
 
   calculate(key, value, units) {
-    return units[key] * value
+    return units[key] * value;
+  }
+
+  unitCalculate(unit, val) {
+    switch (unit) {
+      case 'kilometers':
+        this.patchFormValues('converterGroupSpeed', 'miles', 'mps', val, this.units.unitsKm);
+        break;
+      case 'miles':
+        this.patchFormValues('converterGroupSpeed', 'kilometers', 'mps', val, this.units.unitsMiles);
+        break;
+      case 'mps':
+        this.patchFormValues('converterGroupSpeed', 'kilometers', 'miles', val, this.units.unitsMps);
+        break;
+      case 'kilograms':
+        this.patchFormValues('converterGroupWeight', 'grams', 'pounds', val, this.units.unitsKg);
+        break;
+      case 'pounds':
+        this.patchFormValues('converterGroupWeight', 'kilograms', 'grams', val, this.units.unitslb);
+        break;
+      case 'grams':
+        this.patchFormValues('converterGroupWeight', 'kilograms', 'pounds', val, this.units.unitsG);
+        break;
+      case 'foot':
+        this.patchFormValues('converterGroupLength', 'inches', 'centimeters', val, this.units.unitsFoot);
+        break;
+      case 'inches':
+        this.patchFormValues('converterGroupLength', 'foot', 'centimeters', val, this.units.unitsInches);
+        break;
+      case 'centimeters':
+        this.patchFormValues('converterGroupLength', 'foot', 'inches', val, this.units.unitsCm);
+        break;
+    }
+  }
+
+  patchFormValues(form, second, end, val, units) {
+    this[form].patchValue({
+      [second]: this.calculate(second, val, units),
+      [end]: this.calculate(end, val, units),
+    });
   }
 
   ngOnInit() {
     this.createForm();
-
-    this.converterGroup.get('kilometers').valueChanges.subscribe(value  => {
-      this.converterGroup.patchValue({
-        miles: this.calculate('miles', value, this.unitsKm),
-        mps:   this.calculate('mps', value, this.unitsKm),
-      }, {emitEvent: false});
-    });
-    this.converterGroup.get('miles').valueChanges.subscribe(value  => {
-      this.converterGroup.patchValue({
-        kilometers: this.calculate('kilometers', value, this.unitsMiles),
-        mps:   this.calculate('mps', value, this.unitsMiles),
-      }, {emitEvent: false});
-    });
-    this.converterGroup.get('mps').valueChanges.subscribe(value  => {
-      this.converterGroup.patchValue({
-        kilometers: this.calculate('kilometers', value, this.unitsMps),
-        miles:   this.calculate('miles', value, this.unitsMps),
-      }, {emitEvent: false});
-    });
-
-
-    this.converterGroupWeight.get('kilograms').valueChanges.subscribe(value  => {
-      this.converterGroupWeight.patchValue({
-        pounds: this.calculate('pounds', value, this.unitsKg),
-        grams:   this.calculate('grams', value, this.unitsKg),
-      }, {emitEvent: false});
-    });
-    this.converterGroupWeight.get('pounds').valueChanges.subscribe(value  => {
-      this.converterGroupWeight.patchValue({
-        kilograms: this.calculate('kilograms', value, this.unitslb),
-        grams:   this.calculate('grams', value, this.unitslb),
-      }, {emitEvent: false});
-    });
-    this.converterGroupWeight.get('grams').valueChanges.subscribe(value  => {
-      this.converterGroupWeight.patchValue({
-        kilograms: this.calculate('kilograms', value, this.unitsG),
-        pounds:   this.calculate('pounds', value, this.unitsG),
-      }, {emitEvent: false});
-    });
-
-
-  }//
-
-
-}
+  }
+}//

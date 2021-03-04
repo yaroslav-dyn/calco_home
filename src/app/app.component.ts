@@ -44,7 +44,7 @@ import {RegisterService} from './services/register.service';
                      fixedTopGap="56">
           <mat-nav-list>
             <div *ngFor="let nav of fillerNav">
-              <a mat-list-item class="app_nav__link" [routerLink]="nav.path"
+              <a mat-list-item class="app_nav__link" [routerLink]="nav.path" (click)="snav.toggle()"
                  *ngIf="(nav.requiredLogin && loggedUser) || (!nav.requiredLogin && !loggedUser)">
                 <mat-icon aria-hidden="false" *ngIf="nav.icon">{{nav.icon}}</mat-icon>
                 {{nav.label}}

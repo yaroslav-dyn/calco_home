@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Constants} from "../../../constants.list";
+import {Constants} from '../../../constants.list';
 
 @Component({
   selector: 'app-post-registration',
@@ -8,7 +8,7 @@ import {Constants} from "../../../constants.list";
 
   <div fxLayout="column" fxLayoutAlign="center center" class="h100">
     <div>
-      <h2 class="main_heading">Thank you for registration on 
+      <h2 class="main_heading">Thank you for registration on
         <span class="brand_name">
           <a color="primary"  routerLink="/">{{constantList.Project.name}}</a>
         </span>
@@ -27,7 +27,7 @@ import {Constants} from "../../../constants.list";
 })
 export class PostRegistrationComponent implements OnInit {
 
-  constructor(private constantList: Constants) { }
+  constructor(public constantList: Constants) { }
 
   ngOnInit() {
   }

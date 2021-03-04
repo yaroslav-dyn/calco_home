@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MAT_NATIVE_DATE_FORMATS, MatDateFormats} from '@angular/material';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class Constants {
@@ -36,13 +37,13 @@ export class Constants {
     'cantFetchWord': 'Sorry API doesn\'t available now',
     'saveProfileSuccess': 'Profile has been saved!',
     'saveProfileError': 'Profile hasn\'t been saved! Please try again.',
+    'dataCantBeGet': 'Personal data can\'t be fetch'
   };
 
   public getMessage(str) {
     return this.messages[str];
   }
-}
-
+}//
 export const TYPICAL_CALENDAR_FORMATS: MatDateFormats = {
   ...MAT_NATIVE_DATE_FORMATS,
   display: {
