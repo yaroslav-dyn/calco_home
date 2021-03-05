@@ -29,7 +29,6 @@ import {MatchPipe} from '../../_helpers/pipes/match.pipe';
           </button>
         </div>
       </div>
-      <!-- ##  -->
       <div fxFlex.gt-sm="80" class="notes_items">
         <div class="notes_panel__bgap" fxLayoutGap="10px" [style.zIndex]="1000">
           <button fxHide.xs [ngClass]="{'active-type': noteLayout === 'column wrap' }" (click)="changeNoteLayout('column wrap')" mat-raised-button>

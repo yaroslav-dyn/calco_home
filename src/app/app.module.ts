@@ -42,6 +42,7 @@ import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 import { QrGeneratorComponent } from './Components/qr-generator/qr-generator.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import {FileUploaderComponent} from './Components/content-components/file-uploader';
+import { AppClockComponent } from './Components/app-clock/app-clock.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import {FileUploaderComponent} from './Components/content-components/file-upload
     VocabularyComponent,
     QrGeneratorComponent,
     ProfileComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    AppClockComponent
   ],
   imports: [
     BrowserModule,

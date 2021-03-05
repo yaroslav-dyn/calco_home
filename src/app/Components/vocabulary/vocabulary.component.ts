@@ -26,6 +26,8 @@ export interface ExplanationType {
   selector: 'app-vocabulary',
   template: `
     <div>
+      <h2>Dictionary based on the <a href="https://www.urbandictionary.com/" target="_blank">URBAN Dictionary</a> API </h2>
+      <br>
       <form [formGroup]="searchWord" (ngSubmit)="getWord()">
         <mat-form-field floatLabel="never" class="w100">
           <mat-label>Type your word ...</mat-label>

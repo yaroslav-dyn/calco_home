@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
     this.createForm();
     this.storage.get('currentUser').subscribe((res: CurrentUser) => {
       // @ts-ignore
-      const parsedObj = JSON.parse(res);
+      const parsedObj = res && JSON.parse(res);
       if (res) {
         this.profileForm.setValue(parsedObj);
       }
